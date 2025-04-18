@@ -1,7 +1,82 @@
+// tailwind.config.js
 module.exports = {
   content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}", "./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontSize: {
+        // Display
+        "display-d1": ["57px"],
+        "display-d2": ["45px"],
+
+        // Headings
+        "heading-h1": ["32px"],
+        "heading-h2": ["28px"],
+        "heading-h3": ["24px"],
+
+        // Title
+        title: ["18px"],
+
+        // Body
+        "body-md": ["16px"],
+
+        // Label
+        label: ["14px"],
+
+        // Caption
+        "caption-c1": ["12px"],
+        "caption-c2": ["11px"],
+      },
+      colors: {
+        primary: {
+          900: "#004999",
+          800: "#0055B2",
+          700: "#0062CC",
+          600: "#006EE5",
+          500: "#007AFF",
+          400: "#3395FF",
+          300: "#5CAAFF",
+          200: "#B2D7FF",
+          100: "#D6EAFF",
+          50: "#E5F2FF",
+        },
+        secondary: {
+          900: "#7D21AB",
+          800: "#8C25C1",
+          700: "#9C29D6",
+          600: "#A63EDA",
+          500: "#AF52DE",
+          400: "#BA69E2",
+          300: "#C47FE6",
+          200: "#CD94EB",
+          100: "#D7A9EF",
+          50: "#EBD4F7",
+        },
+        tertiary: {
+          900: "#B26800",
+          800: "#CC7700",
+          700: "#E58600",
+          600: "#FF9500",
+          500: "#FFAA33",
+          400: "#FFB54D",
+          300: "#FFBF66",
+          200: "#FFCA80",
+          100: "#FFD599",
+          50: "#FFEACC",
+        },
+        neutral: {
+          900: "#000000",
+          800: "#1a1a1a",
+          700: "#262626",
+          600: "#383838",
+          500: "#666666",
+          400: "#808080",
+          300: "#A6A6A6",
+          200: "#E0E0E0",
+          100: "#F2F2F2",
+          50: "#FFFFFF",
+        },
+      },
+    },
   },
   plugins: [],
 };
