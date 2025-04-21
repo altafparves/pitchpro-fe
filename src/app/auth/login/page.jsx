@@ -3,11 +3,11 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Button from "../components/Button";
+import Button from "../../components/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { signupUser, clearError } from "@/redux/features/auth/authSlice";
-import Textfield from "../components/Textfield";
+import Textfield from "../../components/Textfield";
 import Image from "next/image";
 
 export default function LoginPage() {
