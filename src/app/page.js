@@ -33,7 +33,10 @@ export default function Home() {
   const router = useRouter();
 
   const handleSignupClick = () => {
-    router.push("/signup");
+    router.push("/signup-old");
+  };
+  const handleWelcomeClick = () => {
+    router.push("/welcome");
   };
 
   const handleAiTestingClick = () => {
@@ -45,16 +48,13 @@ export default function Home() {
       <div className="text-center">
         <h2 className="text-2xl font-semibold mb-6">Welcome!</h2>
         <div className="flex space-x-4">
-          <button
-            onClick={handleSignupClick}
-            className="bg-primary-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
-          >
+          <button onClick={handleWelcomeClick} className="bg-primary-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+            Welcome
+          </button>
+          <button onClick={handleSignupClick} className="bg-primary-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
             Sign Up
           </button>
-          <button
-            onClick={handleAiTestingClick}
-            className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-          >
+          <button onClick={handleAiTestingClick} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
             AI Testing
           </button>
         </div>

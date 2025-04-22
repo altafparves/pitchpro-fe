@@ -10,6 +10,13 @@ module.exports = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        "btn-primary": "0px 2px 0px 0px #0062CC",
+        "btn-info": "0 2px 0 0 #B2D7FF",
+      },
+      fontFamily: {
+        bevietnam: ['"Be Vietnam Pro"', "sans-serif"],
+      },
       spacing: {
         // Based on a 4px scale
         0: "0px",
@@ -44,28 +51,29 @@ module.exports = {
         96: "384px",
       },
       fontSize: {
+        // fontSize: ["font-size", "line-height"]
+
         // Display
         "display-d1": ["57px"],
         "display-d2": ["45px"],
 
         // Headings
-        "heading-h1": "32px",
-        "heading-h2": ["28px"],
-        "heading-h3": ["24px"],
-        tes: ["100px"],
+        "heading-h1": ["32px", "40px"],
+        "heading-h2": ["28px", "36px"],
+        "heading-h3": ["24px", "32px"],
 
         // Title
-        title: ["18px"],
+        title: ["18px",'24px'],
 
         // Body
-        "body-md": ["16px"],
+        body: ["16px",'24px'],
 
         // Label
-        label: ["14px"],
+        label: ["14px","20px"],
 
         // Caption
-        "caption-c1": ["12px"],
-        "caption-c2": ["11px"],
+        "caption-c1": ["12px","16px"],
+        "caption-c2": ["11px","13px"],
       },
       colors: {
         primary: {

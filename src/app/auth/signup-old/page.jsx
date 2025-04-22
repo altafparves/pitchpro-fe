@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signupUser, clearError } from "@/redux/features/auth/authSlice";
 
-export default function SignupPage() {
+export default function SignupPageOld() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { isLoading, error, isAuthenticated } = useSelector((state) => state.auth);
