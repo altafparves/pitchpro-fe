@@ -4,11 +4,11 @@ import Link from "next/link";
 import Button from "../../components/Button";
 import Image from "next/image";
 
-export default function LoginPage() {
+export default function FinishPage() {
   const router = useRouter();
 
   const handleStartClick = () => {
-    router.push("/dashboard"); 
+    router.push("/speaking-test"); 
   };
 
   return (
