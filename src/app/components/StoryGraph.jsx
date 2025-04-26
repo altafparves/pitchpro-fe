@@ -1,4 +1,4 @@
-import StoryButton from "./StoryButton";
+import StoryButton from "./Buttons/StoryButton";
 import IcCheck from "../../../public/assets/icons/ic_check";
 import IcArrow from "../../../public/assets/icons/ic_arrow";
 const storyData = [
