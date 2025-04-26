@@ -2,7 +2,6 @@
 import { ReduxProvider } from "@/redux/provider";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +13,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-
 export const metadata = {
   title: "Main Layout",
 };
@@ -24,10 +22,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ReduxProvider>
-          <div className="flex flex-col  min-h-screen">
-            <main className="flex-1 bg-neutral-50">{children}</main>
-            <Navbar />
-          </div>
+{children}
         </ReduxProvider>
       </body>
     </html>
