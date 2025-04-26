@@ -13,6 +13,7 @@ module.exports = {
       boxShadow: {
         "btn-primary": "0px 2px 0px 0px #0062CC",
         "btn-info": "0 2px 0 0 #B2D7FF",
+        
       },
       fontFamily: {
         bevietnam: ['"Be Vietnam Pro"', "sans-serif"],
@@ -63,20 +64,21 @@ module.exports = {
         "heading-h3": ["24px", "32px"],
 
         // Title
-        title: ["18px",'24px'],
+        title: ["18px", "24px"],
 
         // Body
-        body: ["16px",'24px'],
+        body: ["16px", "24px"],
 
         // Label
-        label: ["14px","20px"],
+        label: ["14px", "20px"],
 
         // Caption
-        "caption-c1": ["12px","16px"],
-        "caption-c2": ["11px","13px"],
+        "caption-c1": ["12px", "16px"],
+        "caption-c2": ["11px", "13px"],
       },
       colors: {
         primary: {
+          1100:'#ADD5FF',
           900: "#004999",
           800: "#0055B2",
           700: "#0062CC",
@@ -86,7 +88,7 @@ module.exports = {
           300: "#5CAAFF",
           200: "#B2D7FF",
           100: "#D6EAFF",
-          50: "#E5F2FF",
+          50: "#ADD5FF",
         },
         secondary: {
           900: "#7D21AB",
