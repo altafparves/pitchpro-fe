@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import StoryButton from "@/app/components/StoryButton";
 import StoryGraph from "@/app/components/StoryGraph";
+import PopupInfo from "@/app/components/PopupInfo";
 export default function StoryPage() {
   const router = useRouter();
    const params = useParams();
@@ -19,10 +20,11 @@ export default function StoryPage() {
         </button>
         <XpChip></XpChip>
       </div>
+      <PopupInfo title="Chapter 1" desc="Ted will prepare his final presentation"></PopupInfo>
       {/* story journey section */}
       <div className="w-full mt-[104px] flex-grow relative overflow-x-auto">
         <div className="flex absolute top-0 bottom-0 items-center flex-grow overflow-y-hidden w-max px-8 gap-10 ">
-          <StoryGraph/>
+          <StoryGraph />
         </div>
       </div>
     </div>
