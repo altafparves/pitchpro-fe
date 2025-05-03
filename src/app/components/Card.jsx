@@ -1,7 +1,19 @@
-export default function Card({ children, padding = "p-6" }) {
+import PropTypes from "prop-types";
+export default function Card({ children, borderColor="border-[#A6A6A6]", padding = "p-6", className = "",title }) {
   return (
     <>
-      <div className={`w-full rounded-[24] ${padding}  border-2 border-[#A6A6A6] p-6 `}>{children}</div>
+      <div className={`w-full rounded-[24] ${padding}  border-2 ${borderColor} p-6 ${className}`}>
+        {title && <p className="text-neutral-900 text-title font-semibold">{title}</p>}
+        {children}
+      </div>
     </>
   );
 }
+
+Card.propTypes = {
+  children: PropTypes.node,
+  padding: PropTypes.string,
+  borderColor: PropTypes.string,
+  title: PropTypes.string,
+  className: PropTypes.string,
+};

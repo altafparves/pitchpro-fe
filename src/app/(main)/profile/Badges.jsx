@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Card from "../components/Card";
+import Card from "@/app/components/Card";
 
 const BADGES = [
   {
@@ -52,8 +52,7 @@ const BADGES = [
 
 export default function Badges() {
   return (
-    <Card padding="p-4">
-      <h2 className="text-neutral-900 text-title font-semibold text-start mb-2">Badges</h2>
+    <Card padding="p-4" title="Badges">
       <div className="w-full grid grid-cols-3 justify-items-center items-center mx-auto gap-2">
         {BADGES.map((badge, index) => (
           <BadgeItem key={index} {...badge} />

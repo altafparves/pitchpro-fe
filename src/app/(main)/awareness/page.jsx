@@ -1,7 +1,6 @@
-"use client";
-// import Navbar from "./components/navbar";
-import XpChip from "../components/XpChip";
-import MenuButton from "../components/MenuButton";
+
+import XpChip from "../../components/XpChip";
+import MenuButton from "@/app/components/Buttons/MenuButton";
 export default function AwarenessPage() {
   
 
