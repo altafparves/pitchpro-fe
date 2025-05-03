@@ -2,7 +2,7 @@
 import Navbar from "../components/navbar";
 
 export const metadata = {
-  title: "Main Layout",
+  title: "PitchPro",
 };
 
 export default function MainLayout({ children }) {
