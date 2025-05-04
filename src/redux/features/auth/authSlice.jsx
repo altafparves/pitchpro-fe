@@ -1,41 +1,39 @@
-// src/redux/features/auth/authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// Async thunk for signup
-export const signupUser = createAsyncThunk("auth/signup", async (userData, { rejectWithValue }) => {
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+
+// Async thunk for registering a user
+export const signupUser = createAsyncThunk("auth/signupUser", async ({ username, email, password }, { rejectWithValue }) => {
   try {
-    // In a real app, this would be an API call
-    // For now, we'll simulate a successful signup
-    // await axios.post('/api/auth/signup', userData);
+    const response = await fetch(`${API_URL}/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, email, password }),
+    });
 
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    if (!response.ok) {
+      const error = await response.json();
+      return rejectWithValue(error);
+    }
 
-    // Return user data (excluding password)
-    const { password, ...user } = userData;
-    return user;
+    const data = await response.json();
+    return data;
   } catch (error) {
-    return rejectWithValue(error.response?.data || "Signup failed");
+    return rejectWithValue(error.message);
   }
 });
 
-const initialState = {
-  user: null,
-  token: null,
-  isAuthenticated: false,
-  isLoading: false,
-  error: null,
-};
-
 const authSlice = createSlice({
   name: "auth",
-  initialState,
+  initialState: {
+    user: null,
+    loading: false,
+    error: null,
+  },
   reducers: {
-    logout: (state) => {
-      state.user = null;
-      state.token = null;
-      state.isAuthenticated = false;
-    },
     clearError: (state) => {
       state.error = null;
     },
@@ -43,22 +41,19 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(signupUser.pending, (state) => {
-        state.isLoading = true;
+        state.loading = true;
         state.error = null;
       })
       .addCase(signupUser.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.loading = false;
         state.user = action.payload;
-        state.isAuthenticated = true;
-        // In a real app, we would store the token from the response
-        state.token = "sample-jwt-token";
       })
       .addCase(signupUser.rejected, (state, action) => {
-        state.isLoading = false;
+        state.loading = false;
         state.error = action.payload;
       });
   },
 });
 
-export const { logout, clearError } = authSlice.actions;
+export const { clearError } = authSlice.actions;
 export default authSlice.reducer;
