@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 const Textfield = ({ label, type = "text", placeholder = "", value, onChange, error, className = "", ...props }) => {
   return (
-    <div className={`flex flex-col items-start bg-primary-500 w-full ${className}`}>
+    <div className={`flex flex-col items-start  w-full ${className}`}>
       {label && <p className="label text-neutral-800 font-semibold text-body mb-[6px]">{label}</p>}
       <input
         type={type}
