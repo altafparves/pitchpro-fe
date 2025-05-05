@@ -23,7 +23,7 @@ export default function PageTransitionWrapper({ children, transitionType = "slid
   return (
     <div className="relative overflow-hidden w-full h-full min-h-screen">
       <AnimatePresence mode="wait">
-        <motion.div key={pathname} variants={selectedVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.4, ease: "easeOut" }} className="absolute top-0 left-0 w-full h-full">
+        <motion.div key={pathname} variants={selectedVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.4, ease: "easeOut" }} className="w-full min-h-screen">
           {children}
         </motion.div>
       </AnimatePresence>
