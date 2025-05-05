@@ -1,21 +1,20 @@
 "use client";
-
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import Button from "../../components/Button";
-import { signupUser, clearError } from "@/redux/features/auth/authSlice";
 import Image from "next/image";
+import { setNavigationDirection } from "@/app/utils/NavigationDirection";
 
 export default function WelcomePage() {
   const router = useRouter();
 
   const handleSignupClick = () => {
     router.push("/auth/signup");
+    setNavigationDirection("forward");
   };
   const handleLoginClick = () => {
     router.push("/auth/login");
+    setNavigationDirection("forward");
+
   };
   return (
     <>

@@ -7,6 +7,8 @@ import Textfield from "../../components/Textfield";
 import { signupUser, clearError } from "@/redux/features/auth/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import PageTransitionWrapper from "@/app/animation/PageTransition";
+import { setNavigationDirection } from "@/app/utils/NavigationDirection";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -44,32 +46,38 @@ export default function SignupPage() {
     if (signupUser.fulfilled.match(result)) {
       router.push("/auth/finish");
     }
+        setNavigationDirection("forward");
   };
 
   return (
-    <div className="w-full min-h-screen bg-neutral-50 px-7 flex flex-col justify-between items-start pb-12 pt-14">
-      <div className="flex flex-col w-full gap-10">
-        <button onClick={() => router.back()} className="flex flex-row gap-2 items-center p-2 pl-0 text-body text-neutral-300 font-semibold">
-          <FontAwesomeIcon icon={faArrowLeft} className="w-[29px] h-[29px]" />
-          Back
-        </button>
-        <div className="form w-full flex flex-col items-center gap-6">
-          <Textfield label="Email" name="email" value={form.email} onChange={handleChange} placeholder="pionirgacor@gmail.com" />
-          <Textfield label="Name" name="username" value={form.username} onChange={handleChange} placeholder="your name" />
-          <Textfield label="Password" name="password" value={form.password} onChange={handleChange} placeholder="******" type="password" />
-          <Textfield label="Verify Password" name="verifyPassword" value={form.verifyPassword} onChange={handleChange} placeholder="******" type="password" />
-          {error && <p className="text-red-500 text-sm">{error.message || error}</p>}
-          <p className="text-label text-neutral-900 font-[550] w-full text-center">
-            Have an account?{" "}
-            <button onClick={() => router.push("/auth/login")} className="text-[#5CAAFF]">
-              Log in here
-            </button>
-          </p>
+    <PageTransitionWrapper>
+      <div className="w-full min-h-screen bg-neutral-50 px-7 flex flex-col justify-between items-start pb-12 pt-14">
+        <div className="flex flex-col w-full gap-10">
+          <button onClick={() => {
+            router.back();
+            setNavigationDirection("backward");
+          }} className="flex flex-row gap-2 items-center p-2 pl-0 text-body text-neutral-300 font-semibold">
+            <FontAwesomeIcon icon={faArrowLeft} className="w-[29px] h-[29px]" />
+            Back
+          </button>
+          <div className="form w-full flex flex-col items-center gap-6">
+            <Textfield label="Email" name="email" value={form.email} onChange={handleChange} placeholder="pionirgacor@gmail.com" />
+            <Textfield label="Name" name="username" value={form.username} onChange={handleChange} placeholder="your name" />
+            <Textfield label="Password" name="password" value={form.password} onChange={handleChange} placeholder="******" type="password" />
+            <Textfield label="Verify Password" name="verifyPassword" value={form.verifyPassword} onChange={handleChange} placeholder="******" type="password" />
+            {error && <p className="text-red-500 text-sm">{error.message || error}</p>}
+            <p className="text-label text-neutral-900 font-[550] w-full text-center">
+              Have an account?{" "}
+              <button onClick={() => router.push("/auth/login")} className="text-[#5CAAFF]">
+                Log in here
+              </button>
+            </p>
+          </div>
         </div>
+        <Button onClick={handleSubmit} disabled={loading}>
+          {loading ? "Creating..." : "Create Account"}
+        </Button>
       </div>
-      <Button onClick={handleSubmit} disabled={loading}>
-        {loading ? "Creating..." : "Create Account"}
-      </Button>
-    </div>
+    </PageTransitionWrapper>
   );
 }

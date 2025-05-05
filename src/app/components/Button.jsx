@@ -12,7 +12,7 @@ const Button = ({ children, className = "", type = "button", variant = "primary"
   const variantClass = VARIANT_CLASSES[variant] || VARIANT_CLASSES.primary;
 
   return (
-    <button type={type} className={`py-3 flex rounded-full items-center justify-center text-body font-[600] w-full ${variantClass} ${className}`} {...props}>
+    <button type={type} className={`py-3 flex rounded-full items-center justify-center text-body font-[550] w-full ${variantClass} ${className}`} {...props}>
       {children}
     </button>
   );
