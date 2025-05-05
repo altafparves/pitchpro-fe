@@ -1,6 +1,6 @@
 import Button from "@/app/components/Button";
 import BasicLayout from "@/app/components/BasicLayout";
-import LocalVideoPlayer from "../components/LocalVideoPlayer";
+import LocalVideoPlayer from "@/app/components/LocalVideoPlayer";
 export default function ChapterPage() {
   return (
     <>
