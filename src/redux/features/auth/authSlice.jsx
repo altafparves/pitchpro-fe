@@ -31,31 +31,36 @@ export const loginUser = createAsyncThunk("auth/loginUser", async ({ email, pass
   try {
     const response = await fetch(`${API_URL}/login`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
-      const error = await response.json();
-      return rejectWithValue(error);
+      return rejectWithValue(data.message || "Login failed");
     }
 
-    const data = await response.json();
-    return data;
+    // Save token to localStorage for persistence
+    localStorage.setItem("token", data.accessToken);
+    localStorage.setItem("user", JSON.stringify(data.datas));
+
+    return { token: data.accessToken, user: data.datas };
   } catch (error) {
     return rejectWithValue(error.message);
   }
 });
 
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
+    token: null,
     loading: false,
     error: null,
   },
+
   reducers: {
     clearError: (state) => {
       state.error = null;
@@ -83,6 +88,7 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+        state.token = action.payload.token;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
