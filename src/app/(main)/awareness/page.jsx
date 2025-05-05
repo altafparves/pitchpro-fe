@@ -14,11 +14,11 @@ export default function AwarenessPage() {
    ];
   return (
     <>
-      <div className="bg-neutral-50 w-full min-h-screen flex flex-col relative ">
-        <div className="bg-neutral-50 h-[104px] flex items-end justify-end py-2 fixed w-full z-40 px-6">
+      <div className="bg-neutral-50 w-full min-h-screen overflow-y-auto flex flex-col relative ">
+        <div className="bg-neutral-50 h-auto pt-14 flex items-end justify-end py-2 fixed w-full z-40 px-6">
                   <XpChip></XpChip>
         </div>
-        <div className="w-full flex flex-col px-6 bg-neutral-50 pt-[120px] gap-8">
+        <div className="w-full flex flex-col px-6 bg-neutral-50 overflow-y-auto mb-[120px] pt-[120px] gap-8">
           <div className="w-full flex flex-col items-start gap-4 text-neutral-900">
             <p className="text-heading-h1 font-semibold">Anxiety Types</p>
             <p className="text-title font-[550]">Need to be known</p>
