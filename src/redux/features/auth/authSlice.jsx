@@ -51,12 +51,14 @@ export const loginUser = createAsyncThunk("auth/loginUser", async ({ email, pass
   }
 });
 
-
+const storedUser = typeof window !== "undefined" ? localStorage.getItem("user") : null;
+const storedToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 const authSlice = createSlice({
+  
   name: "auth",
   initialState: {
-    user: null,
-    token: null,
+    user: storedUser ? { user: JSON.parse(storedUser) } : null,
+    token: storedToken || null,
     loading: false,
     error: null,
   },
@@ -64,6 +66,12 @@ const authSlice = createSlice({
   reducers: {
     clearError: (state) => {
       state.error = null;
+    },
+    logout: (state) => {
+      state.user = null;
+      state.token = null;
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {
