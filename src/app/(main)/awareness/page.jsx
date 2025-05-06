@@ -24,7 +24,7 @@ export default function AwarenessPage() {
             <p className="text-title font-[550]">Need to be known</p>
           </div>
           <div
-            className="w-full menu grid grid-cols-2 gap-6
+            className="w-full  pb-2 h-auto menu grid grid-cols-2 gap-6
           justify-items-center items-center mx-auto"
           >
             {menuItems.map((item) => (
