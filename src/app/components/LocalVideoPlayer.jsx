@@ -30,7 +30,7 @@ export default function LocalVideoPlayer({ storyId, chapterId }) {
   return (
     <div className="relative w-full h-screen bg-black">
       <video ref={videoRef} autoPlay controls={false} preload="auto" className="w-full h-full object-cover" onLoadedMetadata={() => videoRef.current?.play()}>
-        <source src="/videos/tes.mp4" type="video/mp4" />
+        <source src="https://storage.cloud.google.com/assets-pitchpro/(1)Pilih%20belajar(CS).mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 

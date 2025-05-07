@@ -1,25 +1,14 @@
 "use client";
 import { useRouter } from "next/navigation";
 import XpChip from "@/app/components/XpChip";
-import MenuButton from "@/app/components/Buttons/MenuButton";
 import StoryCard from "@/app/components/StoryCard";
+import PageTransitionWrapper from "@/app/animation/PageTransition";
 export default function Home() {
   const router = useRouter();
-
-  const handleSignupClick = () => {
-    router.push("/signup-old");
-  };
-  const handleWelcomeClick = () => {
-    router.push("/welcome");
-  };
-
-  const handleAiTestingClick = () => {
-    router.push("/ai-testing");
-  };
-
   return (
     <>
-      <div className="bg-neutral-50 overflow-y-hidden w-full min-h-screen flex flex-col relative ">
+    <PageTransitionWrapper transitionType="dissolve">
+      <div className="bg-neutral-50 overflow-y-auto w-full min-h-screen flex flex-col relative ">
         <div className="bg-neutral-50 h-[104px] flex items-end justify-end py-2 fixed w-full z-40 px-6">
           <XpChip></XpChip>
         </div>
@@ -37,6 +26,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      </PageTransitionWrapper>
     </>
   );
 }
