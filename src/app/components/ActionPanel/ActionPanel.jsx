@@ -1,9 +1,10 @@
 import Button from "../Button";
 import Line from "../Line";
+import SlideUpAnimation from "@/app/animation/SlideUpAnimation";
 export default function ActionPanel(){
     return (
       <>
-        <div className="flex bottom-0 fixed rounded-t-[20px] bg-neutral-50 flex-col w-full px-5 pt-6 h-auto pb-12">
+        <SlideUpAnimation className="flex bottom-0 fixed rounded-t-[20px] bg-neutral-50 flex-col w-full px-5 pt-6 h-auto pb-12">
           {/* title */}
           <p className="text-title pb-5 text-neutral-800 font-semibold">What do you want?</p>
           <div className="buttons  flex flex-col w-full gap-6 justify-center">
@@ -16,7 +17,7 @@ export default function ActionPanel(){
            <Line></Line>
             <Button>Next</Button>
           </div>
-        </div>
+        </SlideUpAnimation>
       </>
     );
 }
