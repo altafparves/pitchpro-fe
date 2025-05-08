@@ -11,9 +11,7 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        "btn-primary": "0px 2px 0px 0px #0062CC",
-        "btn-info": "0 2px 0 0 #B2D7FF",
-        
+        "btn-primary": "0px 2px 0px 0px #0062CC",        
       },
       fontFamily: {
         bevietnam: ['"Be Vietnam Pro"', "sans-serif"],
