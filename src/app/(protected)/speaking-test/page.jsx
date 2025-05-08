@@ -1,10 +1,10 @@
 "use client";
-import IconCancelGrey from "../../../public/assets/icons/ic_cancel_grey";
-import Button from "../components/Button";
-import ProgressBar from "../components/ProgressBar";
-import IconAudio from "../../../public/assets/icons/mingcute_voice-fill";
-import IconInfo from "../../../public/assets/icons/IconInfo";
-import PopupInfo from "../components/PopupInfo";
+import IconCancelGrey from "../../../../public/assets/icons/ic_cancel_grey";
+import Button from "../../components/Button";
+import ProgressBar from "../../components/ProgressBar";
+import IconAudio from "../../../../public/assets/icons/mingcute_voice-fill";
+import IconInfo from "../../../../public/assets/icons/IconInfo";
+import PopupInfo from "../../components/PopupInfo";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";

@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import Button from "../../components/Button";
+import Button from "../../../components/Button";
 import Image from "next/image";
 import { setNavigationDirection } from "@/app/utils/NavigationDirection";
 
@@ -14,7 +14,6 @@ export default function WelcomePage() {
   const handleLoginClick = () => {
     router.push("/auth/login");
     setNavigationDirection("forward");
-
   };
   return (
     <>

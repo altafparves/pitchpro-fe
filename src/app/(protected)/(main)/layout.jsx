@@ -1,4 +1,4 @@
-import LayoutWrapper from "../utils/LayoutWrapper";
+import LayoutWrapper from "../../utils/LayoutWrapper";
 export const metadata = {
   title: "PitchPro",
 };

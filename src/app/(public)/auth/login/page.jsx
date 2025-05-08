@@ -2,12 +2,12 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import Button from "../../components/Button";
+import Button from "../../../components/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { loginUser, clearError } from "@/redux/features/auth/authSlice"; 
+import { loginUser, clearError } from "@/redux/features/auth/authSlice";
 import PageTransitionWrapper from "@/app/animation/PageTransition";
-import Textfield from "../../components/Textfield";
+import Textfield from "../../../components/Textfield";
 import { setNavigationDirection } from "@/app/utils/NavigationDirection";
 
 export default function LoginPage() {
@@ -26,7 +26,7 @@ export default function LoginPage() {
   const handleLoginSubmit = async () => {
     const resultAction = await dispatch(loginUser({ email, password }));
     if (loginUser.fulfilled.match(resultAction)) {
-    router.push("/story");
+      router.push("/story");
     } else {
       console.error("Login failed:", resultAction.payload);
     }
@@ -37,10 +37,13 @@ export default function LoginPage() {
         {/* Login Form */}
         <div className={`w-full min-h-screen bg-neutral-50 px-7 flex-col justify-between items-center pb-12 pt-14  flex`}>
           <div className="flex flex-col w-full gap-10">
-            <button onClick={() =>
-               {router.back();
-               setNavigationDirection("backward")}
-               } className="flex flex-row gap-2 items-center p-2 pl-0 text-body text-neutral-300 font-semibold text">
+            <button
+              onClick={() => {
+                router.back();
+                setNavigationDirection("backward");
+              }}
+              className="flex flex-row gap-2 items-center p-2 pl-0 text-body text-neutral-300 font-semibold text"
+            >
               <FontAwesomeIcon icon={faArrowLeft} className="w-[29px] h-[29px]" />
               Back
             </button>

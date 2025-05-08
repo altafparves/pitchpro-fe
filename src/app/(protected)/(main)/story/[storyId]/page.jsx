@@ -3,12 +3,12 @@ import { useRouter } from "next/navigation";
 import XpChip from "@/app/components/XpChip";
 import StoryCard from "@/app/components/StoryCard";
 import PageTransitionWrapper from "@/app/animation/PageTransition";
-import ProtectedRoute from "@/app/utils/ProtectedRoute";
-export default function Home() {
+import ProtectedRoute from "@/app/(protected)/layout";
+import ChapterCard from "@/app/components/ChapterCard";
+export default function StoryDetail() {
   const router = useRouter();
   return (
     <>
-      <ProtectedRoute>
         <PageTransitionWrapper transitionType="dissolve">
           <div className="bg-neutral-50 overflow-y-auto w-full min-h-screen flex flex-col relative ">
             <div className="bg-neutral-50 h-[104px] flex items-end justify-end py-2 fixed w-full z-40 px-6">
@@ -17,19 +17,16 @@ export default function Home() {
 
             <div className="flex-1 bg-neutral-50 mt-[104px] overflow-y-auto px-6 pb-[104px] flex flex-col gap-8 ">
               <div className="w-full flex flex-col items-start gap-4 text-neutral-900">
-                <p className="text-heading-h1 font-semibold">Story</p>
+                <p className="text-heading-h1 font-semibold">Chapter</p>
               </div>
               {/* story container */}
               <div className="w-full flex flex-col gap-8">
                 {/* story */}
-                <StoryCard id={1} title="Final Year of Collage Student" bgGradient="bg-[linear-gradient(to_bottom_right,#DAECFF,#7BB1EB)]" contentBg="bg-[#EBF4FF]" shadowColor="#ADD5FF" />
-                {/* story 2 */}
-                <StoryCard id={2} title="Final Year of Collage Student" bgGradient="bg-[linear-gradient(to_bottom_right,#E9D1EE,#E08CED)]" contentBg="bg-[#EBD4F7]" shadowColor="#D6A5EE" />
+                <ChapterCard chapterId={1} title="Chapter 1" description="Practice with friend and final presentation with lecture"></ChapterCard>
               </div>
             </div>
           </div>
         </PageTransitionWrapper>
-      </ProtectedRoute>
     </>
   );
 }

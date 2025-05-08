@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import Button from "../../components/Button";
-import Textfield from "../../components/Textfield";
+import Button from "../../../components/Button";
+import Textfield from "../../../components/Textfield";
 import { signupUser, clearError } from "@/redux/features/auth/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -44,19 +44,22 @@ export default function SignupPage() {
     );
 
     if (signupUser.fulfilled.match(result)) {
-      router.push("/auth/finish");
+      router.push("/finish");
     }
-        setNavigationDirection("forward");
+    setNavigationDirection("forward");
   };
 
   return (
     <PageTransitionWrapper>
       <div className="w-full min-h-screen bg-neutral-50 px-7 flex flex-col justify-between items-start pb-12 pt-14">
         <div className="flex flex-col w-full gap-10">
-          <button onClick={() => {
-            router.back();
-            setNavigationDirection("backward");
-          }} className="flex flex-row gap-2 items-center p-2 pl-0 text-body text-neutral-300 font-semibold">
+          <button
+            onClick={() => {
+              router.back();
+              setNavigationDirection("backward");
+            }}
+            className="flex flex-row gap-2 items-center p-2 pl-0 text-body text-neutral-300 font-semibold"
+          >
             <FontAwesomeIcon icon={faArrowLeft} className="w-[29px] h-[29px]" />
             Back
           </button>

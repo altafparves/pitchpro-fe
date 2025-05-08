@@ -1,8 +1,10 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-const ProtectedRoute = ({ children }) => {
+export default function ProtectedLayout({ children }) {
   const router = useRouter();
   const token = useSelector((state) => state.auth.token);
 
@@ -16,7 +18,5 @@ const ProtectedRoute = ({ children }) => {
     return null;
   }
 
-  return children;
-};
-
-export default ProtectedRoute;
+  return <>{children}</>;
+}

@@ -8,7 +8,7 @@ export default function FinishPage() {
   const router = useRouter();
 
   const handleStartClick = () => {
-    router.push("/speaking-test"); 
+    router.push("/speaking-test");
   };
 
   return (
