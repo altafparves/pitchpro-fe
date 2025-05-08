@@ -1,13 +1,17 @@
-// src/app/components/LayoutWrapper.jsx
 "use client";
 
 import { usePathname } from "next/navigation";
 import Navbar from "../components/navbar";
+
 export default function LayoutWrapper({ children }) {
   const pathname = usePathname();
-  const isChapterPage = pathname.startsWith("/story/") && pathname.includes("/chapter/");
-  const showNavbar = !isChapterPage;
 
+  const pathSegments = pathname.split("/").filter(Boolean);
+
+  // Check if path matches `/story/:storyId/:chapterId/:sceneId`
+  const isScenePage = pathSegments[0] === "story" && pathSegments.length === 4;
+
+  const showNavbar = !isScenePage;
 
   return (
     <div className="flex flex-col min-h-screen">
