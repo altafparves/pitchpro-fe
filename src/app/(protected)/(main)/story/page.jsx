@@ -8,23 +8,19 @@ export default function Home() {
   const router = useRouter();
   return (
     <>
-        <PageTransitionWrapper transitionType="dissolve">
-          <div className="bg-neutral-50 overflow-y-auto w-full min-h-screen flex flex-col relative ">
-            <XpBar></XpBar>
-            <div className="flex-1 bg-neutral-50 mt-[104px] overflow-y-auto px-6 pb-[104px] flex flex-col gap-8 ">
-              <div className="w-full flex flex-col items-start gap-4 text-neutral-900">
-                <p className="text-heading-h1 font-semibold">Story</p>
-              </div>
-              {/* story container */}
-              <div className="w-full flex flex-col gap-8">
-                {/* story */}
-                <StoryCard id={1} title="Final Year of Collage Student" bgGradient="bg-[linear-gradient(to_bottom_right,#DAECFF,#7BB1EB)]" contentBg="bg-[#EBF4FF]" shadowColor="#ADD5FF" />
-                {/* story 2 */}
-                <StoryCard id={2} title="Final Year of Collage Student" bgGradient="bg-[linear-gradient(to_bottom_right,#E9D1EE,#E08CED)]" contentBg="bg-[#EBD4F7]" shadowColor="#D6A5EE" />
-              </div>
+      <PageTransitionWrapper transitionType="dissolve">
+        <div className="bg-neutral-50 overflow-y-auto w-full min-h-screen flex flex-col relative ">
+          <XpBar></XpBar>
+          <div className="flex-1 bg-neutral-50 mt-[104px] overflow-y-auto px-6 pb-[104px] flex flex-col gap-8 ">
+            <div className="w-full flex flex-col items-start gap-4 text-neutral-900">
+              <p className="text-heading-h1 font-semibold">Story</p>
+            </div>
+            <div className="w-full flex flex-col gap-8">
+              <StoryCard id={1} title="4 Minutes of Courage: When Anxiety Meets Opportunity" bgGradient="bg-[linear-gradient(to_bottom_right,#DAECFF,#7BB1EB)]" contentBg="bg-[#EBF4FF]" shadowColor="#ADD5FF" backgroundImageSrc="/assets/image/story_bg.png" />
             </div>
           </div>
-        </PageTransitionWrapper>
+        </div>
+      </PageTransitionWrapper>
     </>
   );
 }
