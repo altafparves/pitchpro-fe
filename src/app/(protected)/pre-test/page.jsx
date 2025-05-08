@@ -1,4 +1,4 @@
-import TopBar from "@/app/components/TopBar";
+import TopBar from "@/app/components/bar/TopBar";
 import BasicLayout from "../components/BasicLayout";
 import ProgressBar from "../components/ProgressBar";
 import IconCancelGrey from "../../../public/assets/icons/ic_cancel_grey";
