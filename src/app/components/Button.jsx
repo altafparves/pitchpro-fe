@@ -8,11 +8,11 @@ const VARIANT_CLASSES = {
   danger: "bg-red-500 text-white shadow-[0px_2px_0px_0px_#B91C1C]",
 };
 
-const Button = ({ children, width = "w-full", className = "", type = "button", variant = "primary", ...props }) => {
+const Button = ({ children, width = "w-full", className = "", type = "button", variant = "primary",disabled = false, ...props }) => {
   const variantClass = VARIANT_CLASSES[variant] || VARIANT_CLASSES.primary;
-
+  const disabledClass = disabled ? "bg-neutral-200 text-neutral-300 shadow-[0px_2px_0px_0px_#A6A6A6] cursor-not-allowed" : "";
   return (
-    <button type={type} className={`py-3 flex rounded-full items-center justify-center text-body font-[550] ${width} ${variantClass} ${className}`} {...props}>
+    <button type={type} className={`py-3 flex rounded-full items-center justify-center text-body font-[550] ${width} ${variantClass} ${className}  ${disabledClass}`} disabled={disabled} {...props}>
       {children}
     </button>
   );
@@ -22,7 +22,8 @@ Button.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   type: PropTypes.string,
-  variant: PropTypes.oneOf(["primary", "info","success", "danger"]),
+  disabled: PropTypes.bool,
+  variant: PropTypes.oneOf(["primary", "info", "success", "danger"]),
 };
 
 export default Button;
