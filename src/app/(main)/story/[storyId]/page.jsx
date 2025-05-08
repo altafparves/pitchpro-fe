@@ -1,32 +1,34 @@
 "use client";
-import React from "react";
+import { useRouter } from "next/navigation";
 import XpChip from "@/app/components/XpChip";
-import { useRouter, useParams } from "next/navigation";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import StoryButton from "@/app/components/Buttons/StoryButton";
-import StoryGraph from "@/app/components/StoryGraph";
-import PopupInfo from "@/app/components/PopupInfo";
-export default function StoryPage() {
+import StoryCard from "@/app/components/StoryCard";
+import PageTransitionWrapper from "@/app/animation/PageTransition";
+import ProtectedRoute from "@/app/utils/ProtectedRoute";
+import ChapterCard from "@/app/components/ChapterCard";
+export default function StoryDetail() {
   const router = useRouter();
-  const params = useParams();
-  const storyId = params?.storyId;
   return (
-    <div className="bg-neutral-50 overflow-y-hidden w-full min-h-screen flex flex-col relative ">
-      <div className="bg-neutral-50 h-[104px] flex items-end justify-between py-2 fixed w-full z-40 px-6">
-        <button onClick={() => router.back()} className="flex flex-row gap-2 items-center p-2 pl-0 text-body text-neutral-300 font-semibold text">
-          <FontAwesomeIcon icon={faArrowLeft} className="w-[29px] h-[29px]" />
-          Choose Story
-        </button>
-        <XpChip></XpChip>
-      </div>
-      <PopupInfo title="Chapter 1" desc="Ted will prepare his final presentation"></PopupInfo>
-      {/* story journey section */}
-      <div className="w-full mt-[104px] flex-grow relative overflow-x-auto">
-        <div className="flex absolute top-0 bottom-0 items-center flex-grow overflow-y-hidden w-max px-8 gap-10 ">
-          <StoryGraph />
-        </div>
-      </div>
-    </div>
+    <>
+      <ProtectedRoute>
+        <PageTransitionWrapper transitionType="dissolve">
+          <div className="bg-neutral-50 overflow-y-auto w-full min-h-screen flex flex-col relative ">
+            <div className="bg-neutral-50 h-[104px] flex items-end justify-end py-2 fixed w-full z-40 px-6">
+              <XpChip></XpChip>
+            </div>
+
+            <div className="flex-1 bg-neutral-50 mt-[104px] overflow-y-auto px-6 pb-[104px] flex flex-col gap-8 ">
+              <div className="w-full flex flex-col items-start gap-4 text-neutral-900">
+                <p className="text-heading-h1 font-semibold">Chapter</p>
+              </div>
+              {/* story container */}
+              <div className="w-full flex flex-col gap-8">
+                {/* story */}
+                <ChapterCard chapterId={1} title="Chapter 1" description="Practice with friend and final presentation with lecture"></ChapterCard>
+              </div>
+            </div>
+          </div>
+        </PageTransitionWrapper>
+      </ProtectedRoute>
+    </>
   );
 }

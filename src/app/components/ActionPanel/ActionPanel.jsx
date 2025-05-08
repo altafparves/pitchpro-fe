@@ -1,5 +1,5 @@
 import Button from "../Button";
-
+import Line from "../Line";
 export default function ActionPanel(){
     return (
       <>
@@ -13,7 +13,7 @@ export default function ActionPanel(){
             <Button variant="info" className="font-[500]">
               Practice With Myself
             </Button>
-            <div className="h-[1px] bg-[#C7C7C7] w-full"></div>
+           <Line></Line>
             <Button>Next</Button>
           </div>
         </div>

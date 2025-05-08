@@ -22,9 +22,9 @@ export default function Home() {
               {/* story container */}
               <div className="w-full flex flex-col gap-8">
                 {/* story */}
-                <StoryCard id="final-year" title="Final Year of Collage Student" bgGradient="bg-[linear-gradient(to_bottom_right,#DAECFF,#7BB1EB)]" contentBg="bg-[#EBF4FF]" shadowColor="#ADD5FF" />
+                <StoryCard id={1} title="Final Year of Collage Student" bgGradient="bg-[linear-gradient(to_bottom_right,#DAECFF,#7BB1EB)]" contentBg="bg-[#EBF4FF]" shadowColor="#ADD5FF" />
                 {/* story 2 */}
-                <StoryCard title="Final Year of Collage Student" bgGradient="bg-[linear-gradient(to_bottom_right,#E9D1EE,#E08CED)]" contentBg="bg-[#EBD4F7]" shadowColor="#D6A5EE" />
+                <StoryCard id={2} title="Final Year of Collage Student" bgGradient="bg-[linear-gradient(to_bottom_right,#E9D1EE,#E08CED)]" contentBg="bg-[#EBD4F7]" shadowColor="#D6A5EE" />
               </div>
             </div>
           </div>

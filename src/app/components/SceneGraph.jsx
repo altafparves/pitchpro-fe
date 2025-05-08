@@ -1,7 +1,9 @@
-import StoryButton from "./Buttons/StoryButton";
+import SceneButton from "./Buttons/SceneButton";
 import IcCheck from "../../../public/assets/icons/ic_check";
 import IcArrow from "../../../public/assets/icons/ic_arrow";
-const storyData = [
+import { useRouter, usePathname } from "next/navigation";
+
+const sceneData = [
   { id: 1, type: "start", status: "completed", x: 0, y: 1 },
   { id: 2, type: "choice", status: "current", x: 1, y: 1 },
   { id: 3, type: "branch", status: "locked", x: 2, y: 0 },
@@ -45,24 +47,78 @@ function getIcon(type) {
   }
 }
 
-function StoryGraph() {
-  const getNode = (id) => storyData.find((node) => node.id === id);
+// function SceneGraph() {
+//   const getNode = (id) => sceneData.find((node) => node.id === id);
+
+//   return (
+//     <div className="relative w-[800px] h-[400px] rounded-xl overflow-hidden">
+//       {/* SVG Lines */}
+//       <svg className="absolute w-full h-full z-0" xmlns="http://www.w3.org/2000/svg">
+//         {edges.map(([fromId, toId], idx) => {
+//           const from = getNode(fromId);
+//           const to = getNode(toId);
+
+//           const fromX = from.x * cellSize + 40;
+//           const fromY = from.y * cellSize + 40;
+//           const toX = to.x * cellSize + 40;
+//           const toY = to.y * cellSize + 40;
+
+//           const isVertical = from.x === to.x;
+
+//           return (
+//             <path
+//               key={idx}
+//               d={isVertical ? `M${fromX},${fromY} L${toX},${toY}` : `M${fromX},${fromY} C${fromX + 40},${fromY} ${toX - 40},${toY} ${toX},${toY}`}
+//               stroke="#E0E0E0"
+//               strokeWidth={4}
+//               strokeDasharray={isVertical ? "4 4" : ""}
+//               fill="transparent"
+//             />
+//           );
+//         })}
+//       </svg>
+
+//       {/* Nodes with SceneButton */}
+//       {sceneData.map((node) => (
+//         <div
+//           key={node.id}
+//           className="absolute z-10"
+//           style={{
+//             left: `${node.x * cellSize}px`,
+//             top: `${node.y * cellSize}px`,
+//           }}
+//         >
+//           <SceneButton className={nodeColors[node.status]}>{getIcon(node.type)}</SceneButton>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
+
+// export default SceneGraph;
+function SceneGraph() {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const getNode = (id) => sceneData.find((node) => node.id === id);
+
+  const handleClick = (node) => {
+    if (node.status !== "locked") {
+      router.push(`${pathname}/${node.id}`);
+    }
+  };
 
   return (
     <div className="relative w-[800px] h-[400px] rounded-xl overflow-hidden">
-      {/* SVG Lines */}
       <svg className="absolute w-full h-full z-0" xmlns="http://www.w3.org/2000/svg">
         {edges.map(([fromId, toId], idx) => {
           const from = getNode(fromId);
           const to = getNode(toId);
-
           const fromX = from.x * cellSize + 40;
           const fromY = from.y * cellSize + 40;
           const toX = to.x * cellSize + 40;
           const toY = to.y * cellSize + 40;
-
           const isVertical = from.x === to.x;
-
           return (
             <path
               key={idx}
@@ -76,8 +132,8 @@ function StoryGraph() {
         })}
       </svg>
 
-      {/* Nodes with StoryButton */}
-      {storyData.map((node) => (
+      {/* Nodes */}
+      {sceneData.map((node) => (
         <div
           key={node.id}
           className="absolute z-10"
@@ -86,11 +142,12 @@ function StoryGraph() {
             top: `${node.y * cellSize}px`,
           }}
         >
-          <StoryButton className={nodeColors[node.status]}>{getIcon(node.type)}</StoryButton>
+          <SceneButton className={nodeColors[node.status]} onClick={() => handleClick(node)}>
+            {getIcon(node.type)}
+          </SceneButton>
         </div>
       ))}
     </div>
   );
 }
-
-export default StoryGraph;
+export default SceneGraph;
