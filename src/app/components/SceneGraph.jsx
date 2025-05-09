@@ -6,41 +6,17 @@ import IcMic from "../../../public/assets/icons/ic_mic";
 import { sceneData } from "../data/SceneData";
 import { useMergedNodes } from "../hooks/useMergedNodes";
 import { useSelectedNode } from "@/app/context/SelectedNodeContext";
+import IcBook from "../../../public/assets/icons/ic_book";
 const edges = [
   [1, 2],
-  [2, 3],
-  [3, 4],
-  [4, 5],
-  [4, 6],
-  [5, 7],
-  [7, 8],
+  [1, 4],
+  [2, 4],
+  [2, 8],
+  [4, 10],
   [8, 9],
-  [9, 10],
+  [9, 11],
   [10, 11],
-  [4, 12],
-  [12, 13],
-  [13, 14],
-  [14, 15],
-  [11, 16],
-  [16, 17],
-  [11, 17],
-  [17, 18],
-  [16, 19],
-  [17, 19],
-  [19, 20],
-  [20, 21],
-  [21, 22],
-  [22, 23],
-  [23, 24],
-  [24, 25],
-  [25, 26],
-  // [11, 12],
-  // [4, 5],
-  // [5, 6],
-  // [6, 9],
-  // [5, 7],
-  // [7, 8],
-  // [8, 9],
+  [11, 12],
 ];
 
 const cellSize = 120;
@@ -52,6 +28,8 @@ function getIcon(type, status) {
       return <IcGraph {...baseProps} backgroundColor={color} />;
     case "checkpoint":
       return <IcMic {...baseProps} backgroundColor={color} />;
+    case "material":
+      return <IcBook {...baseProps} backgroundColor={color} />;
     case "cutscene":
       return <IcArrow {...baseProps} backgroundColor={color} />;
     default:
@@ -77,7 +55,7 @@ function SceneGraph() {
 
   console.log("this is mergedNodes",mergedNodes);
   return (
-    <div className="relative w-[2000px] h-[400px] rounded-xl overflow-hidden">
+    <div className="relative w-[1100px] h-[400px] rounded-xl overflow-hidden">
       <svg className="absolute w-full h-full z-0" xmlns="http://www.w3.org/2000/svg">
         {edges.map(([fromId, toId], idx) => {
           const from = getNode(fromId);
