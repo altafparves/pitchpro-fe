@@ -3,40 +3,10 @@ import IcArrow from "../../../public/assets/icons/ic_arrow";
 import { useRouter, usePathname } from "next/navigation";
 import IcGraph from "../../../public/assets/icons/ic_graph";
 import IcMic from "../../../public/assets/icons/ic_mic";
-const sceneData = [
-  { id: 1, label: "1", type: "cutscene", status: "unlocked", x: 0, y: 1 },
-  { id: 2, label: "2", type: "click", status: "unlocked", x: 1, y: 1 },
-  { id: 3, label: "2A", type: "cutscene", status: "locked", x: 2, y: 1 },
-  { id: 4, label: "2A1", type: "checkpoint", status: "locked", x: 3, y: 1 },
-  { id: 5, label: "2A1A", type: "cutscene", status: "locked", x: 4, y: 1 },
-  { id: 6, label: "2A1B", type: "cutscene", status: "locked", x: 3, y: 1.8 },
-  { id: 7, label: "2A2", type: "cutscene", status: "locked", x: 5, y: 1 },
-  { id: 8, label: "2A3", type: "cutscene", status: "locked", x: 6, y: 1 },
-  { id: 9, label: "2A4", type: "cutscene", status: "locked", x: 7, y: 1 },
-  { id: 10, label: "2A5", type: "cutscene", status: "locked", x: 8, y: 1 },
-  { id: 11, label: "2A73", type: "cutscene", status: "locked", x: 9, y: 1 },
-  { id: 12, label: "2B", type: "cutscene", status: "locked", x: 3, y: 2.4 },
-  { id: 13, label: "2A61", type: "cutscene", status: "locked", x: 4, y: 2.4 },
-  { id: 14, label: "2A62", type: "cutscene", status: "locked", x: 5, y: 2.4 },
-  { id: 15, label: "2A63", type: "cutscene", status: "locked", x: 6, y: 2.4 },
-  { id: 16, label: "2A7-3", type: "checkpoint", status: "locked", x: 10, y: 1 },
-  { id: 17, label: "2A74", type: "cutscene", status: "locked", x: 9, y: 1.8 },
-  { id: 18, label: "2A7-4", type: "checkpoint", status: "locked", x: 10, y: 1.8 },
-  { id: 19, label: "2A75", type: "cutscene", status: "locked", x: 9, y: 2.6 },
-  { id: 20, label: "2A7-5", type: "checkpoint", status: "locked", x: 10, y: 2.6 },
-  { id: 21, label: "2A8", type: "cutscene", status: "locked", x: 11, y: 2.6 },
-  { id: 22, label: "3", type: "cutscene", status: "locked", x: 12, y: 2.6 },
-  { id: 23, label: "3.1", type: "cutscene", status: "locked", x: 13, y: 2.6 },
-  { id: 24, label: "3.2", type: "cutscene", status: "locked", x: 14, y: 2.6 },
-  { id: 25, label: "3.3", type: "checkpoint", status: "locked", x: 15, y: 2.6 },
-
-  // { id: 5, type: "cutscene", status: "locked", x: 2, y: 2 },
-  // { id: 6, type: "cutscene", status: "locked", x: 3, y: 1 },
-  // { id: 7, type: "cutscene", status: "locked", x: 4, y: 0 },
-  // { id: 8, type: "cutscene", status: "locked", x: 4, y: 2 },
-  // { id: 9, type: "cutscene", status: "locked", x: 5, y: 2 },
-  // { id: 10, type: "end", status: "locked", x: 6, y: 1 },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { fetchStories } from "@/redux/features/Story/StorySlice";
+import { sceneData } from "../data/SceneData";
+import { useEffect } from "react";
 const edges = [
   [1, 2],
   [2, 3],
@@ -64,6 +34,7 @@ const edges = [
   [22, 23],
   [23, 24],
   [24, 25],
+  [25, 26],
   // [11, 12],
   // [4, 5],
   // [5, 6],
@@ -90,10 +61,35 @@ function getIcon(type, status) {
 }
 
 function SceneGraph() {
+  console.log("this is sceneData", sceneData);
   const router = useRouter();
   const pathname = usePathname();
+  const dispatch = useDispatch();
+  const { stories, status } = useSelector((state) => state.stories);
 
-  const getNode = (id) => sceneData.find((node) => node.id === id);
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchStories());
+    }
+  }, [dispatch, status]);
+
+
+  const mergedNodes = sceneData.map((node) => {
+    // Only modify nodes that have story_id
+    if (node.story_id) {
+      const matchedStory = stories.find((s) => s.story_id === node.story_id);
+      if (matchedStory) {
+        return {
+          ...node,
+          status: matchedStory.status ?? node.status, 
+          tema: matchedStory.tema ?? node.tema, 
+        };
+      }
+    }
+    return node;
+  });
+
+  const getNode = (id) => mergedNodes.find((node) => node.id === id);
 
   const handleClick = (node) => {
     if (node.status !== "locked") {
@@ -101,6 +97,8 @@ function SceneGraph() {
     }
   };
 
+
+  console.log("this is mergedNodes",mergedNodes);
   return (
     <div className="relative w-[2000px] h-[400px] rounded-xl overflow-hidden">
       <svg className="absolute w-full h-full z-0" xmlns="http://www.w3.org/2000/svg">
@@ -123,7 +121,7 @@ function SceneGraph() {
       </svg>
 
       {/* Nodes */}
-      {sceneData.map((node) => (
+      {mergedNodes.map((node) => (
         <div
           key={node.id}
           className="absolute z-10"
