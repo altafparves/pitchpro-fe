@@ -3,10 +3,9 @@ import IcArrow from "../../../public/assets/icons/ic_arrow";
 import { useRouter, usePathname } from "next/navigation";
 import IcGraph from "../../../public/assets/icons/ic_graph";
 import IcMic from "../../../public/assets/icons/ic_mic";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchStories } from "@/redux/features/Story/StorySlice";
 import { sceneData } from "../data/SceneData";
-import { useEffect } from "react";
+import { useMergedNodes } from "../hooks/useMergedNodes";
+
 const edges = [
   [1, 2],
   [2, 3],
@@ -64,31 +63,8 @@ function SceneGraph() {
   console.log("this is sceneData", sceneData);
   const router = useRouter();
   const pathname = usePathname();
-  const dispatch = useDispatch();
-  const { stories, status } = useSelector((state) => state.stories);
 
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchStories());
-    }
-  }, [dispatch, status]);
-
-
-  const mergedNodes = sceneData.map((node) => {
-    // Only modify nodes that have story_id
-    if (node.story_id) {
-      const matchedStory = stories.find((s) => s.story_id === node.story_id);
-      if (matchedStory) {
-        return {
-          ...node,
-          status: matchedStory.status ?? node.status, 
-          tema: matchedStory.tema ?? node.tema, 
-        };
-      }
-    }
-    return node;
-  });
-
+  const mergedNodes = useMergedNodes();
   const getNode = (id) => mergedNodes.find((node) => node.id === id);
 
   const handleClick = (node) => {
