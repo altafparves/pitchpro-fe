@@ -5,7 +5,7 @@ import IcGraph from "../../../public/assets/icons/ic_graph";
 import IcMic from "../../../public/assets/icons/ic_mic";
 import { sceneData } from "../data/SceneData";
 import { useMergedNodes } from "../hooks/useMergedNodes";
-
+import { useSelectedNode } from "@/app/context/SelectedNodeContext";
 const edges = [
   [1, 2],
   [2, 3],
@@ -63,13 +63,14 @@ function SceneGraph() {
   console.log("this is sceneData", sceneData);
   const router = useRouter();
   const pathname = usePathname();
+  const { setSelectedNode } = useSelectedNode();
 
   const mergedNodes = useMergedNodes();
   const getNode = (id) => mergedNodes.find((node) => node.id === id);
 
   const handleClick = (node) => {
     if (node.status !== "locked") {
-      router.push(`${pathname}/${node.id}`);
+      setSelectedNode(node);
     }
   };
 

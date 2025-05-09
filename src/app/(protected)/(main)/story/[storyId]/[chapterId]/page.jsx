@@ -6,11 +6,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import SceneGraph from "@/app/components/SceneGraph";
 import PopupInfo from "@/app/components/PopupInfo";
+import { SelectedNodeProvider } from "@/app/context/SelectedNodeContext";
 export default function ChapterDetail() {
   const router = useRouter();
   const params = useParams();
   const storyId = params?.storyId;
   return (
+    <SelectedNodeProvider>
     <div className="bg-neutral-50 overflow-y-hidden w-full min-h-screen flex flex-col relative ">
       <div className="bg-neutral-50 h-[104px] flex items-end justify-between py-2 fixed w-full z-40 px-6">
         <button onClick={() => router.back()} className="flex flex-row gap-2 items-center p-2 pl-0 text-body text-neutral-300 font-semibold text">
@@ -27,5 +29,6 @@ export default function ChapterDetail() {
         </div>
       </div>
     </div>
+    </SelectedNodeProvider>
   );
 }
