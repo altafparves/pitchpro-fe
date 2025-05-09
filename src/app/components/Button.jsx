@@ -9,8 +9,8 @@ const VARIANT_CLASSES = {
 };
 
 const Button = ({ children,onClick, width = "w-full", className = "", type = "button", variant = "primary",disabled = false, ...props }) => {
-  const variantClass = VARIANT_CLASSES[variant] || VARIANT_CLASSES.primary;
-  const disabledClass = disabled ? "bg-neutral-200 text-neutral-300 shadow-[0px_2px_0px_0px_#A6A6A6] cursor-not-allowed" : "";
+  const variantClass = !disabled ? VARIANT_CLASSES[variant] || VARIANT_CLASSES.primary : "";
+  const disabledClass = disabled ? "bg-[#E0E0E0] text-neutral-300 shadow-[0px_2px_0px_0px_#A6A6A6] cursor-not-allowed" : "";
   return (
     <button onClick={onClick} type={type} className={`py-3 flex rounded-full items-center justify-center text-body font-[550] ${width} ${variantClass} ${className}  ${disabledClass}`} disabled={disabled} {...props}>
       {children}
