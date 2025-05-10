@@ -9,7 +9,7 @@ import { sceneMetaData } from "@/app/data/SceneMetaData";
 import { useMemo } from "react";
 import { useVideoGroup } from "@/app/context/VideoGroupContext";
 
-export default function CutSceneSix({ nodeId, destinationId}) {
+export default function CutSceneThree({ nodeId, destinationId }) {
   const { goToGroup } = useVideoGroup();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -30,8 +30,8 @@ export default function CutSceneSix({ nodeId, destinationId}) {
       setCurrentIndex((prev) => prev + 1);
     } else {
       setCurrentIndex(destinationId);
-    sessionStorage.setItem("userInteracted", "true");
-    goToGroup(destinationId);
+      sessionStorage.setItem("userInteracted", "true");
+      goToGroup(destinationId);
     }
   };
 
