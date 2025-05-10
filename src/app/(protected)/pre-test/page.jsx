@@ -3,7 +3,7 @@ import TopBar from "@/app/components/bar/TopBar";
 import BasicLayout from "@/app/components/BasicLayout";
 import ProgressBar from "@/app/components/ProgressBar";
 import IconCancelGrey from "../../../../public/assets/icons/ic_cancel_grey";
-import Card from "@/app/components/Card";
+import { Card } from "@/app/components/Card";
 import CustomSlider from "@/app/components/CustomSlider";
 import ContentWrapper from "@/app/components/ContentWrapper";
 import OptionButton from "@/app/components/Buttons/OptionBtn";
