@@ -8,13 +8,24 @@ import CancelVidBtn from "../Buttons/CancelVidBtn";
 import ProgressBar from "../ProgressBar";
 import { useVideoGroup } from "@/app/context/VideoGroupContext";
 import RecordActionPanel from "../ActionPanel/RecordActionPanel";
-export default function AudioInputGroupTwo({nodeId}) {
+import { useSceneMetaData } from "@/app/hooks/useSceneMetaData";
+import Pretest from "../pre-test/page";
+
+export default function AudioInputGroupOne({nodeId}) {
+  const scenes = useSceneMetaData();
+  const [pretestDone, setPretestDone] = useState(false);
   const [currentStep, setCurrentStep] = useState("first");
   const { nextGroup, goToGroup } = useVideoGroup();
   const [showAction, setShowAction] = useState(false);
   const [loopSecondVideo, setLoopSecondVideo] = useState(false);
   const [progress, setProgress] = useState(0);
   const progressFinal = 75;
+
+  const currentScene = scenes.find((scene) => scene.id === Number(nodeId));
+  const status= currentScene?.status;
+  const firstId = currentScene?.story_id;
+  console.log("this is current scene", currentScene,status);
+
   const handleVideoEnd = () => {
     if (currentStep === "first") {
       setCurrentStep("second");
@@ -49,6 +60,10 @@ export default function AudioInputGroupTwo({nodeId}) {
     return <LoopingVideoPlayer key="looping-second-video" videoSrc="https://storage.cloud.google.com/assets-pitchpro/(2.A.1)Persuasive(AUDIO).mp4" />;
   };
 
+  if (!pretestDone) {
+    return <Pretest nodeId={nodeId} currentScene={currentScene} onDone={() => setPretestDone(true)} />;
+  }
+
   return (
     <BasicLayout className="bg-white">
       <TopBar className="bg-transparent h-[90px]">
@@ -58,7 +73,7 @@ export default function AudioInputGroupTwo({nodeId}) {
         </div>
       </TopBar>
       {renderVideo()}
-      {showAction && <RecordActionPanel/>}
+      {showAction && <RecordActionPanel nodeId={firstId}/>}
     </BasicLayout>
   );
 }

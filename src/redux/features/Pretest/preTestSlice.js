@@ -1,12 +1,12 @@
 // features/pretest/preTestSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
-export const sendPreTest = createAsyncThunk("pretest/sendPreTest", async ({ id, anxiety_level, anxiety_reason }, { rejectWithValue }) => {
+export const sendPreTest = createAsyncThunk("pretest/sendPreTest", async ({ id, anxiety_level,status, anxiety_reason }, { rejectWithValue }) => {
   try {
     const token = localStorage.getItem("token");
-
+    const method = status === "locked" ? "POST" : "PUT";
     const response = await fetch(`${API_URL}/pre-test/${id}`, {
-      method: "POST",
+      method,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
