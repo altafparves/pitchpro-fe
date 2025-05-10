@@ -6,14 +6,9 @@ export default function PopupInfo({ titleProp, descriptionProp}) {
   const router = useRouter();
   const { selectedNode } = useSelectedNode();
   console.log("PopupInfo: selectedNode =", selectedNode);
-  // If there's a selectedNode and it has a 'tema', use that as desc
   const description = selectedNode?.desc || descriptionProp;
   const title = selectedNode?.title || titleProp;
   const isSelectedNodeNotEmpty = selectedNode && Object.keys(selectedNode).length > 0;
-
-  //  Get user from localStorage
-  const storedUser = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("user")) : null;
-  const userId = storedUser?.id || storedUser?.user_id || "guest";
 
   const handlePlayClick = () => {
     console.log("Play button clicked");
