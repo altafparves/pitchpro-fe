@@ -23,7 +23,7 @@ export default function ChapterDetail() {
             </button>
             <XpChip></XpChip>
           </div>
-          <PopupInfo title="Chapter 1" desc="Arga, who is collage student, want to  prepare his AI class presentation. "></PopupInfo>
+          <PopupInfo titleProp="Chapter 1" descriptionProp="Arga, who is collage student, want to  prepare his AI class presentation. "></PopupInfo>
           {/* story journey section */}
           <div className="w-full mt-[206px]  flex-grow relative overflow-x-auto">
             <div className="flex absolute top-0 bottom-0 items-center flex-grow overflow-y-hidden w-max px-8 gap-10 ">
