@@ -1,23 +1,54 @@
 "use client";
-import { useState, useRef } from "react";
+
+import { useRef, forwardRef, useImperativeHandle } from "react";
 import IconAudio from "../../../public/assets/icons/mingcute_voice-fill";
 import Button from "../components/Button";
 
-export default function AudioRecorder() {
-  const [isRecording, setIsRecording] = useState(false);
+const AudioRecorder = forwardRef(({ onRecordingStart, onRecordingStop, isRecording }, ref) => {
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
+  const audioStreamRef = useRef(null);
+
+  useImperativeHandle(ref, () => ({
+    stopRecording: () => {
+      if (mediaRecorderRef.current && isRecording) {
+        mediaRecorderRef.current.stop();
+      }
+    },
+    getRecordedAudio: () => {
+      if (audioChunksRef.current.length > 0) {
+        return new Blob(audioChunksRef.current, { type: "audio/wav" });
+      }
+      return null;
+    },
+  }));
+
+  const getSupportedMimeType = () => {
+    const possibleTypes = ["audio/wav", "audio/webm", "audio/mp4", "audio/ogg"];
+
+    for (const type of possibleTypes) {
+      if (MediaRecorder.isTypeSupported(type)) {
+        return type;
+      }
+    }
+
+    return undefined;
+  };
 
   const handleRecordToggle = async () => {
     if (isRecording) {
-      // Stop recording
       mediaRecorderRef.current.stop();
-      setIsRecording(false);
     } else {
-      // Start recording
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const mediaRecorder = new MediaRecorder(stream);
+        audioStreamRef.current = stream;
+
+        const options = {
+          mimeType: getSupportedMimeType(),
+          audioBitsPerSecond: 128000,
+        };
+
+        const mediaRecorder = new MediaRecorder(stream, options);
         mediaRecorderRef.current = mediaRecorder;
 
         audioChunksRef.current = [];
@@ -28,36 +59,28 @@ export default function AudioRecorder() {
           }
         };
 
-        mediaRecorder.onstop = async () => {
-          const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
-          await sendToAPI(audioBlob);
+        mediaRecorder.onstop = () => {
+          const audioBlob = new Blob(audioChunksRef.current, { type: mediaRecorder.mimeType });
+
+          if (audioStreamRef.current) {
+            audioStreamRef.current.getTracks().forEach((track) => track.stop());
+            audioStreamRef.current = null;
+          }
+
+          if (onRecordingStop) {
+            onRecordingStop(audioBlob);
+          }
         };
 
         mediaRecorder.start();
-        setIsRecording(true);
+        if (onRecordingStart) onRecordingStart();
       } catch (err) {
         console.error("Microphone access denied or error:", err);
+        if (audioStreamRef.current) {
+          audioStreamRef.current.getTracks().forEach((track) => track.stop());
+          audioStreamRef.current = null;
+        }
       }
-    }
-  };
-
-  const sendToAPI = async (audioBlob) => {
-    const formData = new FormData();
-    formData.append("file", audioBlob, "recording.webm");
-
-    try {
-      const response = await fetch("/api/upload-audio", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        console.log("Audio uploaded successfully");
-      } else {
-        console.error("Upload failed");
-      }
-    } catch (err) {
-      console.error("Error uploading audio:", err);
     }
   };
 
@@ -67,4 +90,8 @@ export default function AudioRecorder() {
       {isRecording ? "Stop Recording" : "Start Recording"}
     </Button>
   );
-}
+});
+
+AudioRecorder.displayName = "AudioRecorder";
+
+export default AudioRecorder;

@@ -1,20 +1,47 @@
 "use client";
-
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import AudioRecorder from "../Recorder";
 import Countdown from "../Countdown";
 import Line from "../Line";
 import Button from "../Button";
 import IconInfo from "../../../../public/assets/icons/IconInfo";
 import SlideUpAnimation from "@/app/animation/SlideUpAnimation";
-import HelpPanel from "./HelpPanel"; // Import the HelpPanel component
+import HelpPanel from "./HelpPanel";
 
 export default function RecordActionPanel() {
   const [isHelpPanelOpen, setIsHelpPanelOpen] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  const [countdownRunning, setCountdownRunning] = useState(false);
+  const [recordedAudio, setRecordedAudio] = useState(null);
+  const audioRecorderRef = useRef(null);
 
   const toggleHelpPanel = () => {
     setIsHelpPanelOpen(!isHelpPanelOpen);
   };
+
+  const handleRecordingStart = () => {
+    setIsRecording(true);
+    setCountdownRunning(true);
+    setRecordedAudio(null);
+  };
+
+  const handleRecordingStop = (audioBlob) => {
+    setIsRecording(false);
+    setCountdownRunning(false);
+    if (audioBlob) {
+      setRecordedAudio(audioBlob);
+      console.log("Audio received in parent:", audioBlob);
+    }
+  };
+
+  const handleCountdownComplete = () => {
+    if (audioRecorderRef.current) {
+      audioRecorderRef.current.stopRecording();
+    }
+    setCountdownRunning(false);
+  };
+
+
 
   return (
     <>
@@ -27,15 +54,13 @@ export default function RecordActionPanel() {
             <Button width="w-fit" className="px-7 py-4" variant="info" onClick={toggleHelpPanel}>
               <IconInfo />
             </Button>
-            <AudioRecorder />
+            <AudioRecorder ref={audioRecorderRef} onRecordingStart={handleRecordingStart} onRecordingStop={handleRecordingStop} isRecording={isRecording} />
           </div>
-          <Countdown number={30} />
+          <Countdown number={30} running={countdownRunning} onComplete={handleCountdownComplete} />
           <Line />
-          <Button disabled={false}>Next</Button>
+          <Button disabled={!recordedAudio}>Next</Button>
         </div>
       </SlideUpAnimation>
-
-      {/* Conditionally render the HelpPanel */}
       {isHelpPanelOpen && <HelpPanel onClose={toggleHelpPanel} />}
     </>
   );
