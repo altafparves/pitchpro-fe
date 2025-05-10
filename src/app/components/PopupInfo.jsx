@@ -9,14 +9,13 @@ export default function PopupInfo({ titleProp, descriptionProp}) {
   const description = selectedNode?.desc || descriptionProp;
   const title = selectedNode?.title || titleProp;
   const isSelectedNodeNotEmpty = selectedNode && Object.keys(selectedNode).length > 0;
-
   const handlePlayClick = () => {
     console.log("Play button clicked");
     sessionStorage.setItem("userInteracted", "true");
-    router.push(`${window.location.pathname}/scene`);
+    if (selectedNode?.id) {
+      router.push(`${window.location.pathname}/scene?id=${selectedNode.id}`);
+    }    
   };
-  
-
   return (
     <div className="w-full absolute px-3 top-[94px] left-0 right-0">
       <div

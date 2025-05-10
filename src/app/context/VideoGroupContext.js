@@ -9,7 +9,7 @@ export const VideoGroupProvider = ({ children }) => {
   const nextGroup = () => setCurrentGroup((prev) => prev + 1);
   const goToGroup = (groupNumber) => setCurrentGroup(groupNumber);
 
-  return <VideoGroupContext.Provider value={{ currentGroup, nextGroup, goToGroup }}>{children}</VideoGroupContext.Provider>;
+  return <VideoGroupContext.Provider value={{ currentGroup,setCurrentGroup, nextGroup, goToGroup }}>{children}</VideoGroupContext.Provider>;
 };
 
 export const useVideoGroup = () => useContext(VideoGroupContext);
