@@ -9,7 +9,7 @@
 }
 
 body {
-  background: var(--background);
+  background: #ffffff;
   color: var(--foreground);
   font-family: bevietnam, sans-serif;
 }

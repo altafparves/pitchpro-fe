@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-export default function Card({ children, borderColor="border-[#A6A6A6]", padding = "p-6", className = "",title }) {
+export  function Card({ children, borderColor="border-[#A6A6A6]", padding = "p-6", className = "",title }) {
   return (
     <>
       <div className={`w-full rounded-[24] ${padding}  border-2 ${borderColor} p-6 ${className}`}>
@@ -17,3 +17,11 @@ Card.propTypes = {
   title: PropTypes.string,
   className: PropTypes.string,
 };
+
+
+export  function CardFilled({children}){
+  return(
+    <>
+    <div className="flex w-full p-3 rounded-2xl flex-col bg-[#E5F2FF] shadow-[0px_4px_0px_0px_#ADD5FF]">{children}</div></>
+  )
+}
