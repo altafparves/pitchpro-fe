@@ -17,6 +17,7 @@ export default function PopupInfo({ titleProp, descriptionProp}) {
 
   const handlePlayClick = () => {
     console.log("Play button clicked");
+    sessionStorage.setItem("userInteracted", "true");
     router.push(`${window.location.pathname}/scene`);
   };
   
