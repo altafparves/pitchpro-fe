@@ -10,7 +10,7 @@ import CutSceneFour from "@/app/components/VideoGroup/cutSceneFour";
 import CutSceneFive from "@/app/components/VideoGroup/cutSceneFive";
 import CutSceneSix from "@/app/components/VideoGroup/cutSceneSix";
 import CutSceneSeven from "@/app/components/VideoGroup/cutSceneSeven";
-
+import AudioInputGroupOne from "@/app/components/VideoGroup/AudioInputGroup";
 
 import AudioInputGroup from "@/app/components/VideoGroup/AudioInputGroup";
 import CutSceneOne from "@/app/components/VideoGroup/CutSceneOne";
@@ -28,7 +28,7 @@ function GamePageContent() {
       case 1:
         return <ClickGroup />;
       case 2:
-        return <AudioInputGroup />;
+        return <AudioInputGroupOne nodeId={2} />;
       case 3:
         return <CutSceneOne nodeId={3} destinationId={4} />;
       case 4:
