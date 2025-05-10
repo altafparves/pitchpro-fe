@@ -1,66 +1,28 @@
-// "use client";
-// import React, { useEffect, useState, useRef } from "react";
-// import PropTypes from "prop-types";
 
-// const Countdown = ({ number = 60, running = true, className = "", ...props }) => {
-//   const [seconds, setSeconds] = useState(parseInt(number, 10) || 0);
-//   const intervalRef = useRef(null);
-
-//   useEffect(() => {
-//     if (running && seconds > 0 && !intervalRef.current) {
-//       intervalRef.current = setInterval(() => {
-//         setSeconds((prev) => prev - 1);
-//       }, 1000);
-//     }
-
-//     if (!running && intervalRef.current) {
-//       clearInterval(intervalRef.current);
-//       intervalRef.current = null;
-//     }
-
-//     return () => {
-//       clearInterval(intervalRef.current);
-//       intervalRef.current = null;
-//     };
-//   }, [running]);
-
-//   useEffect(() => {
-//     if (seconds <= 0 && intervalRef.current) {
-//       clearInterval(intervalRef.current);
-//       intervalRef.current = null;
-//     }
-//   }, [seconds]);
-
-//   return (
-//     <div
-//       className={`py-3 flex rounded-full items-center justify-center text-body font-[550] w-full
-//         bg-[#D6F5D6] shadow-[0px_2px_0px_0px_#ADEBAD] ${className}`}
-//       {...props}
-//     >
-//       <p className="text-title font-[550] text-green-600">{seconds > 0 ? `${seconds}s remaining` : "Time's up!"}</p>
-//     </div>
-//   );
-// };
-
-// Countdown.propTypes = {
-//   className: PropTypes.string,
-//   number: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//   running: PropTypes.bool,
-// };
-
-// export default Countdown;
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 
-const Countdown = ({ number = 60, running = true, className = "", ...props }) => {
+const Countdown = ({ number = 60, running = true, className = "", onComplete, ...props }) => {
   const [seconds, setSeconds] = useState(parseInt(number, 10) || 0);
   const intervalRef = useRef(null);
 
   useEffect(() => {
+    setSeconds(parseInt(number, 10) || 0);
+  }, [number]);
+
+  useEffect(() => {
     if (running && seconds > 0 && !intervalRef.current) {
       intervalRef.current = setInterval(() => {
-        setSeconds((prev) => Math.max(prev - 1, 0));
+        setSeconds((prev) => {
+          const newSeconds = Math.max(prev - 1, 0);
+          if (newSeconds === 0) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+            onComplete?.();
+          }
+          return newSeconds;
+        });
       }, 1000);
     }
 
@@ -73,14 +35,7 @@ const Countdown = ({ number = 60, running = true, className = "", ...props }) =>
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     };
-  }, [running]);
-
-  useEffect(() => {
-    if (seconds <= 0 && intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-  }, [seconds]);
+  }, [running, onComplete]);
 
   const formatTime = (totalSeconds) => {
     const minutes = Math.floor(totalSeconds / 60)
@@ -105,6 +60,7 @@ Countdown.propTypes = {
   className: PropTypes.string,
   number: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   running: PropTypes.bool,
+  onComplete: PropTypes.func,
 };
 
 export default Countdown;
