@@ -1,7 +1,7 @@
 "use client";
 import { useSelector } from "react-redux";
 import Image from "next/image";
-import Card from "@/app/components/Card";
+import {Card} from "@/app/components/Card";
 import XpChip from "@/app/components/XpChip";
 import Badges from "./Badges";
 import LineChart from "@/app/components/chart/LineChart";

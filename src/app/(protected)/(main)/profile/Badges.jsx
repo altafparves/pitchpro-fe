@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Card from "@/app/components/Card";
+import {Card} from "@/app/components/Card";
 
 const BADGES = [
   {
