@@ -48,7 +48,7 @@ export default function LoginPage() {
               Back
             </button>
             <div className="form w-full flex flex-col items-center gap-6">
-              <Textfield label="Email" placeholder="pionirgacor@gmail.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <Textfield label="Email" placeholder="pitchpro26@gmail.com" value={email} onChange={(e) => setEmail(e.target.value)} />
               <Textfield label="Password" placeholder="******" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
               {error && <p className="text-red-500">{error.message || "Login failed"}</p>}
               <p className="text-label text-neutral-900 font-[500] w-full text-center">
