@@ -2,12 +2,10 @@ import XpChip from "../../../components/XpChip";
 import MenuButton from "@/app/components/Buttons/MenuButton";
 export default function AwarenessPage() {
   const menuItems = [
-    { id: 1, color: "#80CAEA", shadow: "#62A4C0", text: "Glossophobia" },
-    { id: 2, color: "#C2EA80", shadow: "#96B85F", text: "Glossophobia" },
-    { id: 3, color: "#EAB280", shadow: "#E29450", text: "Glossophobia" },
-    { id: 4, color: "#BD8BF2", shadow: "#A35FEC", text: "Glossophobia" },
-    { id: 5, color: "#EA8080", shadow: "#E25050", text: "Glossophobia" },
-    { id: 6, color: "#7499DF", shadow: "#4477D4", text: "Glossophobia" },
+    { id: 1, color: "#80CAEA", shadow: "#62A4C0", text: "Public Speaking Anxiety" },
+    { id: 2, color: "#EAB280", shadow: "#E29450", text: "Breath Techniques" },
+    { id: 3, color: "#BD8BF2", shadow: "#A35FEC", text: "Relaxation Techniques" },
+    { id: 4, color: "#EA8080", shadow: "#E25050", text: "Public Speaking" },
   ];
   return (
     <>
