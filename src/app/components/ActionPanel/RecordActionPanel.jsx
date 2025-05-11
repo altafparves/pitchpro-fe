@@ -9,7 +9,8 @@ import SlideUpAnimation from "@/app/animation/SlideUpAnimation";
 import HelpPanel from "./HelpPanel";
 import { useDispatch } from "react-redux";
 import { uploadAudio } from "@/redux/features/Audio/audioSlice";
-export default function RecordActionPanel({nodeId}) {
+export default function RecordActionPanel({ nodeId, onResultReceived }) {
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [isHelpPanelOpen, setIsHelpPanelOpen] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
@@ -43,7 +44,29 @@ export default function RecordActionPanel({nodeId}) {
     setCountdownRunning(false);
   };
 
+  const handleClick = async () => {
+    setLoading(true);
+    try {
+      console.log("Uploading audio with nodeId:", nodeId, recordedAudio);
+      const resultAction = await dispatch(uploadAudio({ id: nodeId, audioBlob: recordedAudio }));
 
+      if (uploadAudio.fulfilled.match(resultAction)) {
+        const response = resultAction.payload;
+        console.log("Upload success:", response);
+
+        if (response.result !== undefined && typeof onResultReceived === "function") {
+          onResultReceived(response.result);
+        }
+      } else {
+        console.error("Upload failed:", resultAction.payload);
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
 
   return (
     <>
@@ -60,14 +83,8 @@ export default function RecordActionPanel({nodeId}) {
           </div>
           <Countdown number={30} running={countdownRunning} onComplete={handleCountdownComplete} />
           <Line />
-          <Button
-            disabled={!recordedAudio}
-            onClick={() => {
-              console.log("Uploading audio with nodeId:", nodeId, recordedAudio);
-              dispatch(uploadAudio({ id: nodeId, audioBlob: recordedAudio }));
-            }}
-          >
-            Next
+          <Button disabled={!recordedAudio || loading} onClick={handleClick}>
+            {loading ? "Loading..." : "Next"}
           </Button>
         </div>
       </SlideUpAnimation>
