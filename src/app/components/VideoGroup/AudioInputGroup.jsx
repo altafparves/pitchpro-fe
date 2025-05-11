@@ -36,17 +36,14 @@ export default function AudioInputGroupOne({nodeId}) {
     }
   };
 
-  const handleAction = (actionType) => {
-    setLoopSecondVideo(false);
-    sessionStorage.setItem("userInteracted", "true");
-    if (actionType === "myself") {
-      goToGroup(2);
-    } else if (actionType === "friend") {
-      goToGroup(3);
+  const handleAudioResult = (result) => {
+    if (result === true) {
+      goToGroup(6);
     } else {
-      nextGroup();
+      goToGroup(3);
     }
   };
+  
 
   const renderVideo = () => {
     if (currentStep === "first") {
@@ -73,7 +70,7 @@ export default function AudioInputGroupOne({nodeId}) {
         </div>
       </TopBar>
       {renderVideo()}
-      {showAction && <RecordActionPanel nodeId={firstId}/>}
+      {showAction && <RecordActionPanel nodeId={firstId} onResultReceived={handleAudioResult} />}
     </BasicLayout>
   );
 }
