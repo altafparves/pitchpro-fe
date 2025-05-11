@@ -32,7 +32,7 @@ export default function WelcomePage() {
             Log In
           </Button>
 
-          <div className="w-full flex flex-row justify-between items-center">
+          {/* <div className="w-full flex flex-row justify-between items-center">
             <p className="flex flex-col text-body items-start text-neutral-900 font-regular ">
               Or continue using <span className="font-semibold">Google or SSO</span>
             </p>
@@ -40,7 +40,7 @@ export default function WelcomePage() {
               <div className="h-[48px] bg-[#D9D9D9]  rounded-[10px] w-[48px]"></div>
               <div className="h-[48px] bg-[#D9D9D9] rounded-[10px] w-[48px]"></div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
