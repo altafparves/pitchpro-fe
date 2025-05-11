@@ -64,12 +64,12 @@ export default function SignupPage() {
             Back
           </button>
           <div className="form w-full flex flex-col items-center gap-6">
-            <Textfield label="Email" name="email" value={form.email} onChange={handleChange} placeholder="pionirgacor@gmail.com" />
-            <Textfield label="Name" name="username" value={form.username} onChange={handleChange} placeholder="your name" />
+            <Textfield label="Email" name="email" value={form.email} onChange={handleChange} placeholder="pitchpro26@gmail.com" />
+            <Textfield label="Name" name="username" value={form.username} onChange={handleChange} placeholder="pitchpro" />
             <Textfield label="Password" name="password" value={form.password} onChange={handleChange} placeholder="******" type="password" />
             <Textfield label="Verify Password" name="verifyPassword" value={form.verifyPassword} onChange={handleChange} placeholder="******" type="password" />
             {error && <p className="text-red-500 text-sm">{error.message || error}</p>}
-            <p className="text-label text-neutral-900 font-[550] w-full text-center">
+            <p className="text-label text-neutral-900 font-[500] w-full text-center">
               Have an account?{" "}
               <button onClick={() => router.push("/auth/login")} className="text-[#5CAAFF]">
                 Log in here

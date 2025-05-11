@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "https://be-pitch-pro.vercel.app"; 
-// Get stories from API with bearer token
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export const fetchStories = createAsyncThunk("stories/fetchStories", async (_, thunkAPI) => {
   try {
     const token = localStorage.getItem("token");

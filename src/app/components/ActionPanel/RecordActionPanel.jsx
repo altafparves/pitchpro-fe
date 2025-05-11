@@ -7,8 +7,10 @@ import Button from "../Button";
 import IconInfo from "../../../../public/assets/icons/IconInfo";
 import SlideUpAnimation from "@/app/animation/SlideUpAnimation";
 import HelpPanel from "./HelpPanel";
-
-export default function RecordActionPanel() {
+import { useDispatch } from "react-redux";
+import { uploadAudio } from "@/redux/features/Audio/audioSlice";
+export default function RecordActionPanel({nodeId}) {
+  const dispatch = useDispatch();
   const [isHelpPanelOpen, setIsHelpPanelOpen] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [countdownRunning, setCountdownRunning] = useState(false);
@@ -58,7 +60,15 @@ export default function RecordActionPanel() {
           </div>
           <Countdown number={30} running={countdownRunning} onComplete={handleCountdownComplete} />
           <Line />
-          <Button disabled={!recordedAudio}>Next</Button>
+          <Button
+            disabled={!recordedAudio}
+            onClick={() => {
+              console.log("Uploading audio with nodeId:", nodeId, recordedAudio);
+              dispatch(uploadAudio({ id: nodeId, audioBlob: recordedAudio }));
+            }}
+          >
+            Next
+          </Button>
         </div>
       </SlideUpAnimation>
       {isHelpPanelOpen && <HelpPanel onClose={toggleHelpPanel} />}

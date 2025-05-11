@@ -10,7 +10,7 @@ export default function ProtectedLayout({ children }) {
 
   useEffect(() => {
     if (!token) {
-      router.replace("/auth/login");
+      router.replace("/auth/welcome");
     }
   }, [token, router]);
 

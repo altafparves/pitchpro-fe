@@ -14,13 +14,15 @@ export const signupUser = createAsyncThunk("auth/signupUser", async ({ username,
       body: JSON.stringify({ username, email, password }),
     });
 
+    const data = await response.json();
     if (!response.ok) {
       const error = await response.json();
       return rejectWithValue(error);
     }
+    localStorage.setItem("token", data.accessToken);
+    localStorage.setItem("user", JSON.stringify(data.data));
 
-    const data = await response.json();
-    return data;
+    return { token: data.accessToken, user: data.data };
   } catch (error) {
     return rejectWithValue(error.message);
   }
@@ -51,13 +53,26 @@ export const loginUser = createAsyncThunk("auth/loginUser", async ({ email, pass
   }
 });
 
-const storedUser = typeof window !== "undefined" ? localStorage.getItem("user") : null;
-const storedToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
+let storedUser = null;
+let storedToken = null;
+
+if (typeof window !== "undefined") {
+  try {
+    const userData = localStorage.getItem("user");
+    storedUser = userData && userData !== "undefined" ? JSON.parse(userData) : null;
+    storedToken = localStorage.getItem("token");
+  } catch (e) {
+    console.error("Failed to parse stored user:", e);
+    storedUser = null;
+    storedToken = null;
+  }
+}
+
 const authSlice = createSlice({
-  
   name: "auth",
   initialState: {
-    user: storedUser ? { user: JSON.parse(storedUser) } : null,
+    user: storedUser ? { user: storedUser } : null,
     token: storedToken || null,
     loading: false,
     error: null,
@@ -83,7 +98,9 @@ const authSlice = createSlice({
       .addCase(signupUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+        state.token = action.payload.token;
       })
+
       .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
@@ -107,3 +124,4 @@ const authSlice = createSlice({
 
 export const { clearError } = authSlice.actions;
 export default authSlice.reducer;
+authSlice.js

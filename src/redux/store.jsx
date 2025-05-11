@@ -3,11 +3,14 @@ import authReducer from "./features/auth/authSlice";
 import xpReducer from "./features/xp/XpSlice";
 import storiesReducer from "./features/Story/StorySlice";
 import pretestReducer from "./features/Pretest/preTestSlice";
+import audioReducer from "./features/Audio/audioSlice";
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     xp: xpReducer,
     stories: storiesReducer,
     pretest: pretestReducer,
+    audio:audioReducer,
   },
 });
