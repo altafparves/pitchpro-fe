@@ -2,10 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const uploadAudio = createAsyncThunk("audio/uploadAudio", async ({ id, audioBlob }, { rejectWithValue }) => {
+export const uploadAudio = createAsyncThunk("audio/uploadAudio", async ({ id, audioBlob,status }, { rejectWithValue }) => {
   try {
     const token = localStorage.getItem("token");
-
     const formData = new FormData();
     formData.append("audio", audioBlob, "recorded_audio.wav");
 
