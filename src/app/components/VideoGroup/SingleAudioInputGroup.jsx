@@ -11,7 +11,8 @@ import RecordActionPanel from "../ActionPanel/RecordActionPanel";
 import { useSceneMetaData } from "@/app/hooks/useSceneMetaData";
 import Pretest from "../pre-test/page";
 
-export default function AudioInputGroupOne({nodeId}) {
+export default function SingleAudioInputGroup
+({nodeId}) {
   const scenes = useSceneMetaData();
   const [pretestDone, setPretestDone] = useState(false);
   const [currentStep, setCurrentStep] = useState("first");
