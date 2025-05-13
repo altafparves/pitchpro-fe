@@ -14,6 +14,7 @@ import Pretest from "../pre-test/page";
 export default function SingleAudioInputGroup
 ({nodeId}) {
   const scenes = useSceneMetaData();
+  console.log("this is scenes", scenes);
   const [pretestDone, setPretestDone] = useState(false);
   const [currentStep, setCurrentStep] = useState("first");
   const { nextGroup, goToGroup } = useVideoGroup();
@@ -23,9 +24,9 @@ export default function SingleAudioInputGroup
   const progressFinal = 75;
 
   const currentScene = scenes.find((scene) => scene.id === Number(nodeId));
-  const status= currentScene?.status;
   const firstId = currentScene?.story_id;
-  console.log("this is current scene", currentScene,status);
+  const hasDonePretest = currentScene?.is_pre_test;
+
 
   const handleVideoEnd = () => {
     if (currentStep === "first") {
@@ -59,7 +60,7 @@ export default function SingleAudioInputGroup
   };
 
   if (!pretestDone) {
-    return <Pretest nodeId={nodeId} currentScene={currentScene} onDone={() => setPretestDone(true)} />;
+    return <Pretest nodeId={nodeId} status={hasDonePretest}  currentScene={currentScene} onDone={() => setPretestDone(true)} />;
   }
 
   return (

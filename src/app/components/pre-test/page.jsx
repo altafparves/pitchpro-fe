@@ -20,6 +20,8 @@ export default function Pretest({ nodeId, onDone,status }) {
   const [anxietyReason, setAnxietyReason] = useState("");
   const [progress, setProgress] = useState(0);
 
+  console.log("this is status",status);
+
   const reasons = ["The topic", "The environment", "Lack of preparation", "Fear of failure"];
 
   useEffect(() => {

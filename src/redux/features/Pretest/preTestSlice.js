@@ -4,7 +4,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export const sendPreTest = createAsyncThunk("pretest/sendPreTest", async ({ id, anxiety_level,status, anxiety_reason }, { rejectWithValue }) => {
   try {
     const token = localStorage.getItem("token");
-    const method = status === "locked" ? "POST" : "PUT";
+    const method = status ? "PUT" : "POST";
     const response = await fetch(`${API_URL}/pre-test/${id}`, {
       method,
       headers: {
