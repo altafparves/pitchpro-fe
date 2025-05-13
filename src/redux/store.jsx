@@ -5,6 +5,7 @@ import storiesReducer from "./features/Story/StorySlice";
 import pretestReducer from "./features/Pretest/preTestSlice";
 import audioReducer from "./features/Audio/audioSlice";
 import feedbackReducer from "./features/feedback/feedbackSlice";
+import profileReducer from "./features/profile/profileSlice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -13,5 +14,6 @@ export const store = configureStore({
     pretest: pretestReducer,
     audio: audioReducer,
     feedback: feedbackReducer,
+    profile: profileReducer,
   },
 });

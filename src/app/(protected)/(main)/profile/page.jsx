@@ -1,13 +1,26 @@
 "use client";
-import { useSelector } from "react-redux";
 import Image from "next/image";
 import {Card} from "@/app/components/Card";
 import XpChip from "@/app/components/XpChip";
 import Badges from "./Badges";
 import LineChart from "@/app/components/chart/LineChart";
 import Skeleton from "@/app/components/Skeleton";
+import { useEffect } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { fetchProfile } from "@/redux/features/profile/profileSlice";
 export default function ProfilePage() {
   const user = useSelector((state) => state.auth.user?.user);
+  const dispatch = useDispatch();
+  const profile = useSelector((state)=> state.profile.value);
+  const loading = useSelector((state) => state.profile.loading);
+
+
+  useEffect(()=>{
+    dispatch(fetchProfile());
+  },[dispatch]);
+
+  console.log("profile",profile);
+  console.log("this is user",user);
   return (
     <div className="flex-1 relative bg-neutral-50 overflow-y-auto px-5 pb-[104px] flex flex-col items-start gap-6 pt-14">
       <Card>
