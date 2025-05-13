@@ -1,12 +1,25 @@
+"use client";
 import BasicLayout from "../BasicLayout"
 import { Card } from "../Card";
 import XpChip from "../XpChip";
 import PaceChart from "../chart/PaceChart";
 import Button from "../Button";
-export default function PracticeFeedback({ onDone }) {
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFeedback } from "@/redux/features/feedback/feedbackSlice";
+export default function PracticeFeedback({ onDone,id=1 }) {
+  const dispatch = useDispatch();
+  const { data, loading, error } = useSelector((state) => state.feedback);
+
+  useEffect(() => {
+    if (id) {
+      console.log("Fetching feedback with id:", id);
+      dispatch(fetchFeedback(id));
+    }
+  }, [dispatch, id]);
     return (
       <>
-        <BasicLayout className="bg-neutral-50 h-full overflow-auto px-5">
+        <BasicLayout className="bg-neutral-5\0 h-full overflow-auto px-5">
           <div className="flex flex-col items-center gap-6 pb-2">
             <p className="text-center text-title font-[600] text-neutral-900">Practice Feedback</p>
             <Card borderColor="#5CAAFF" shadow="#ADD5FF" title="Points">
