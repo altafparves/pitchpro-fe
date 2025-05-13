@@ -4,13 +4,14 @@ import xpReducer from "./features/xp/XpSlice";
 import storiesReducer from "./features/Story/StorySlice";
 import pretestReducer from "./features/Pretest/preTestSlice";
 import audioReducer from "./features/Audio/audioSlice";
-
+import feedbackReducer from "./features/feedback/feedbackSlice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     xp: xpReducer,
     stories: storiesReducer,
     pretest: pretestReducer,
-    audio:audioReducer,
+    audio: audioReducer,
+    feedback: feedbackReducer,
   },
 });
