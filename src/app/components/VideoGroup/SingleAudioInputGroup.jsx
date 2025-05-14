@@ -12,6 +12,7 @@ import { useSceneMetaData } from "@/app/hooks/useSceneMetaData";
 import Pretest from "../pre-test/page";
 import PracticeFeedback from "../feedback/PracticeFeedback";
 import PostTest from "../PostTest/page";
+import PageTransitionWrapper from "@/app/animation/PageTransition";
 import { CheckpointProvider } from "@/app/context/CheckpointContext";
 export default function SingleAudioInputGroup
 ({nodeId}) {
@@ -30,6 +31,7 @@ export default function SingleAudioInputGroup
   const firstId = currentScene?.story_id;
   const hasDonePretest = currentScene?.is_pre_test;
   const hasDonePosttest = currentScene?.is_post_test;
+  console.log("ini scene saat ini",currentScene);
 
 
   const handleVideoEnd = () => {
@@ -84,7 +86,7 @@ export default function SingleAudioInputGroup
   }
 
   return (
-    <CheckpointProvider>
+    <CheckpointProvider story={currentScene?.story}>
       <BasicLayout className="bg-white">
         <TopBar className="bg-transparent h-[90px]">
           <div className="flex  w-full flex-row gap-6 items-center">

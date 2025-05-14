@@ -2,7 +2,7 @@ import React, { createContext, useRef, useContext } from "react";
 
 const CheckpointContext = createContext();
 
-export const CheckpointProvider = ({ children }) => {
+export const CheckpointProvider = ({ children,story }) => {
   const audioRef = useRef(null);
 
   const playAudio = () => {
@@ -13,7 +13,7 @@ export const CheckpointProvider = ({ children }) => {
     audioRef.current?.pause();
   };
 
-  return <CheckpointContext.Provider value={{ audioRef, playAudio, pauseAudio }}>{children}</CheckpointContext.Provider>;
+  return <CheckpointContext.Provider value={{ audioRef, playAudio, pauseAudio,story }}>{children}</CheckpointContext.Provider>;
 };
 
 export const useCheckpoint = () => useContext(CheckpointContext);

@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { sendPreTest } from "@/redux/features/Pretest/preTestSlice";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 export default function Pretest({ nodeId, onDone,status }) {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -68,41 +69,43 @@ export default function Pretest({ nodeId, onDone,status }) {
   };
 
   return (
-    <BasicLayout className="bg-neutral-400">
-      <TopBar bgColor="bg-neutral-50">
-        <div className="flex w-full flex-row gap-6 items-center">
-          <button onClick={handleGoBack}>
-            <IconCancelGrey />
-          </button>
-          <ProgressBar progress={progress} />
-        </div>
-      </TopBar>
+    <motion.div initial={{ x: "100%", opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: "100%", opacity: 0 }} transition={{ type: "tween", duration: 0.4 }}>
+      <BasicLayout className="bg-neutral-400">
+        <TopBar bgColor="bg-neutral-50">
+          <div className="flex w-full flex-row gap-6 items-center">
+            <button onClick={handleGoBack}>
+              <IconCancelGrey />
+            </button>
+            <ProgressBar progress={progress} />
+          </div>
+        </TopBar>
 
-      <ContentWrapper className="pt-[102px] min-h-screen justify-between pb-12">
-        <div className="w-full flex flex-col gap-6 mb-6">
-          <Card borderColor="border-[#5CAAFF]" title="How anxious were you during this public speaking practice?">
-            <div className="w-full pt-4">
-              <CustomSlider onChange={setAnxietyLevel} />
-            </div>
-            <p className="text-caption-c1 w-full flex flex-row justify-between items-center pt-1 text-neutral-900 font-semibold">
-              Not Anxious
-              <span>Very Anxious</span>
-            </p>
-          </Card>
+        <ContentWrapper className="pt-[102px] min-h-screen justify-between pb-12">
+          <div className="w-full flex flex-col gap-6 mb-6">
+            <Card borderColor="border-[#5CAAFF]" title="How anxious were you during this public speaking practice?">
+              <div className="w-full pt-4">
+                <CustomSlider onChange={setAnxietyLevel} />
+              </div>
+              <p className="text-caption-c1 w-full flex flex-row justify-between items-center pt-1 text-neutral-900 font-semibold">
+                Not Anxious
+                <span>Very Anxious</span>
+              </p>
+            </Card>
 
-          <Card borderColor="border-[#5CAAFF]" title="What made you anxious during this public speaking practice?">
-            <div className="flex mt-5 flex-col items-start gap-4">
-              {reasons.map((label) => (
-                <OptionButton key={label} label={label} selected={anxietyReason === label} onSelect={setAnxietyReason} />
-              ))}
-            </div>
-          </Card>
-        </div>
+            <Card borderColor="border-[#5CAAFF]" title="What made you anxious during this public speaking practice?">
+              <div className="flex mt-5 flex-col items-start gap-4">
+                {reasons.map((label) => (
+                  <OptionButton key={label} label={label} selected={anxietyReason === label} onSelect={setAnxietyReason} />
+                ))}
+              </div>
+            </Card>
+          </div>
 
-        <Button onClick={handleNext} disabled={anxietyLevel === null || !anxietyReason}>
-          Next
-        </Button>
-      </ContentWrapper>
-    </BasicLayout>
+          <Button onClick={handleNext} disabled={anxietyLevel === null || !anxietyReason}>
+            Next
+          </Button>
+        </ContentWrapper>
+      </BasicLayout>
+    </motion.div>
   );
 }
