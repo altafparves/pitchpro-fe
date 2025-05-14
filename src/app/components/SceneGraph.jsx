@@ -53,6 +53,8 @@ function SceneGraph() {
     }
   };
 
+  console.log("this is merged nodes data",mergedNodes);
+
 
   return (
     <div className="relative w-[1100px] h-[400px] rounded-xl overflow-hidden">
