@@ -10,8 +10,6 @@ export default function CustomSlider({ onChange }) {
     onChange?.(newValue);
   };
 
-  console.log("this is value of slider", value);
-
   return (
     <div className="flex flex-col items-center w-full px-6">
       <div className="relative w-full max-w-md">

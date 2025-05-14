@@ -5,12 +5,10 @@ import { useRouter } from "next/navigation";
 export default function PopupInfo({ titleProp, descriptionProp}) {
   const router = useRouter();
   const { selectedNode } = useSelectedNode();
-  console.log("PopupInfo: selectedNode =", selectedNode);
   const description = selectedNode?.desc || descriptionProp;
   const title = selectedNode?.title || titleProp;
   const isSelectedNodeNotEmpty = selectedNode && Object.keys(selectedNode).length > 0;
   const handlePlayClick = () => {
-    console.log("Play button clicked");
     sessionStorage.setItem("userInteracted", "true");
     if (selectedNode?.id) {
       router.push(`${window.location.pathname}/scene?id=${selectedNode.id}`);

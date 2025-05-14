@@ -25,7 +25,6 @@ export default function SingleAudioInputGroup
   const [loopSecondVideo, setLoopSecondVideo] = useState(false);
   const [progress, setProgress] = useState(0);
   const progressFinal = 75;
-  console.log("this is scenes",scenes);
   const currentScene = scenes.find((scene) => scene.id === Number(nodeId));
   const firstId = currentScene?.story_id;
   const hasDonePretest = currentScene?.is_pre_test;

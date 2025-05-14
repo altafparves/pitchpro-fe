@@ -18,9 +18,6 @@ export default function ProfilePage() {
   useEffect(()=>{
     dispatch(fetchProfile());
   },[dispatch]);
-
-  console.log("profile",profile);
-  console.log("this is user",user);
   return (
     <div className="flex-1 relative bg-neutral-50 overflow-y-auto px-5 pb-[104px] flex flex-col items-start gap-6 pt-14">
       <Card>
