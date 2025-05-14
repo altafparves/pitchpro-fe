@@ -11,25 +11,25 @@ import RecordActionPanel from "../ActionPanel/RecordActionPanel";
 import { useSceneMetaData } from "@/app/hooks/useSceneMetaData";
 import Pretest from "../pre-test/page";
 import PracticeFeedback from "../feedback/PracticeFeedback";
-
+import PostTest from "../PostTest/page";
 export default function SingleAudioInputGroup
 ({nodeId}) {
   const scenes = useSceneMetaData();
-  console.log("this is scenes", scenes);
   const [pretestDone, setPretestDone] = useState(false);
   const [AudioInputDone, setAudioInputDone] = useState(false);
   const [openFeedback, setOpenFeedback] = useState(false);
-  const [posttestDone, setPosttestDone] = useState(false);
+  const [openPosttest, setOpenPosttest] = useState(false);
   const [currentStep, setCurrentStep] = useState("first");
   const { nextGroup, goToGroup } = useVideoGroup();
   const [showAction, setShowAction] = useState(false);
   const [loopSecondVideo, setLoopSecondVideo] = useState(false);
   const [progress, setProgress] = useState(0);
   const progressFinal = 75;
-
+  console.log("this is scenes",scenes);
   const currentScene = scenes.find((scene) => scene.id === Number(nodeId));
   const firstId = currentScene?.story_id;
   const hasDonePretest = currentScene?.is_pre_test;
+  const hasDonePosttest = currentScene?.is_post_test;
 
 
   const handleVideoEnd = () => {
@@ -67,7 +67,20 @@ export default function SingleAudioInputGroup
   }
 
   if (openFeedback) {
-    return <PracticeFeedback onDone={() => goToGroup(6)} id={firstId} />;
+    return (
+      <PracticeFeedback
+        id={firstId}
+        onDone={() => {
+          setOpenFeedback(false);
+          setOpenPosttest(true);
+        }}
+      />
+    );
+  }
+  
+
+  if (openPosttest) {
+    return <PostTest onDone={() => goToGroup(6)} nodeId={nodeId} status={hasDonePosttest} />;
   }
 
   return (

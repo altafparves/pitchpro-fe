@@ -16,11 +16,10 @@ import { useRouter } from "next/navigation";
 export default function PostTest({ nodeId, onDone,status }) {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [anxietyLevel, setAnxietyLevel] = useState(true);
+  const [anxietyLevel, setAnxietyLevel] = useState(null);
   const [anxietyReason, setAnxietyReason] = useState("");
   const [progress, setProgress] = useState(0);
 
-  console.log("this is status",status);
 
   const reasons = ["The topic", "The environment", "Lack of preparation", "Fear of failure"];
 
@@ -39,10 +38,6 @@ export default function PostTest({ nodeId, onDone,status }) {
       alert("Please complete both questions before proceeding.");
       return;
     }
-
-    const user = localStorage.getItem("user");
-    const userId = user ? JSON.parse(user)?.id : null;
-
     dispatch(
       sendPostTest({
         id: nodeId,
