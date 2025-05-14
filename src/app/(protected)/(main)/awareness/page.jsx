@@ -24,7 +24,7 @@ export default function AwarenessPage() {
         <div className="w-full flex flex-col px-6 bg-neutral-50 overflow-y-auto mb-[120px] pt-[120px] gap-8">
           <div className="w-full flex flex-col items-start gap-4 text-neutral-900">
             <p className="text-heading-h1 font-semibold">Anxiety Types</p>
-            <p className="text-title font-[550]">Need to be known</p>
+            <p className="text-title font-[500]">Need to be known</p>
           </div>
           <div
             className="w-full  pb-2 h-auto menu grid grid-cols-2 gap-6
