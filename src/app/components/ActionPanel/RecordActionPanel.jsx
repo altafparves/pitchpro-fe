@@ -9,7 +9,9 @@ import SlideUpAnimation from "@/app/animation/SlideUpAnimation";
 import HelpPanel from "./HelpPanel";
 import { useDispatch } from "react-redux";
 import { uploadAudio } from "@/redux/features/Audio/audioSlice";
+import { useCheckpoint } from "@/app/context/CheckpointContext";
 export default function RecordActionPanel({ nodeId, onResultReceived }) {
+  const { pauseAudio } = useCheckpoint();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [isHelpPanelOpen, setIsHelpPanelOpen] = useState(false);
@@ -23,6 +25,7 @@ export default function RecordActionPanel({ nodeId, onResultReceived }) {
   };
 
   const handleRecordingStart = () => {
+    pauseAudio();
     setIsRecording(true);
     setCountdownRunning(true);
     setRecordedAudio(null);

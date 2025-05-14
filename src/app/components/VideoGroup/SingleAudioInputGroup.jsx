@@ -12,6 +12,7 @@ import { useSceneMetaData } from "@/app/hooks/useSceneMetaData";
 import Pretest from "../pre-test/page";
 import PracticeFeedback from "../feedback/PracticeFeedback";
 import PostTest from "../PostTest/page";
+import { CheckpointProvider } from "@/app/context/CheckpointContext";
 export default function SingleAudioInputGroup
 ({nodeId}) {
   const scenes = useSceneMetaData();
@@ -83,15 +84,17 @@ export default function SingleAudioInputGroup
   }
 
   return (
-    <BasicLayout className="bg-white">
-      <TopBar className="bg-transparent h-[90px]">
-        <div className="flex  w-full flex-row gap-6 items-center">
-          <CancelVidBtn></CancelVidBtn>
-          <ProgressBar progress={progress} />
-        </div>
-      </TopBar>
-      {renderVideo()}
-      {showAction && <RecordActionPanel nodeId={firstId} onResultReceived={handleAudioResult} />}
-    </BasicLayout>
+    <CheckpointProvider>
+      <BasicLayout className="bg-white">
+        <TopBar className="bg-transparent h-[90px]">
+          <div className="flex  w-full flex-row gap-6 items-center">
+            <CancelVidBtn></CancelVidBtn>
+            <ProgressBar progress={progress} />
+          </div>
+        </TopBar>
+        {renderVideo()}
+        {showAction && <RecordActionPanel nodeId={firstId} onResultReceived={handleAudioResult} />}
+      </BasicLayout>
+    </CheckpointProvider>
   );
 }

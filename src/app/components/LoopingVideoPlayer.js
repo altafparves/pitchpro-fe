@@ -1,32 +1,10 @@
-// "use client";
-// import { useRef, useEffect } from "react";
-
-// export default function LoopingVideoPlayer({ videoSrc }) {
-//   const videoRef = useRef(null);
-
-//   useEffect(() => {
-//     const video = videoRef.current;
-//     if (video) {
-//       video.play();
-//     }
-//   }, []);
-
-//   return (
-//     <div className="w-full h-screen bg-black">
-//       <video ref={videoRef} autoPlay loop muted playsInline preload="auto" className="w-full h-full object-cover">
-//         <source src={videoSrc} type="video/mp4" />
-//         Your browser does not support the video tag.
-//       </video>
-//     </div>
-//   );
-// }
-
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, use } from "react";
+import { useCheckpoint } from "../context/CheckpointContext";
 
 export default function LoopingVideoPlayer({ videoSrc }) {
+  const {audioRef}=useCheckpoint();
   const videoRef = useRef(null);
-  const audioRef = useRef(null);
 
   useEffect(() => {
     const video = videoRef.current;
