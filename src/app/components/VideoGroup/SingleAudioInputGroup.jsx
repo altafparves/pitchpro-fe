@@ -10,12 +10,16 @@ import { useVideoGroup } from "@/app/context/VideoGroupContext";
 import RecordActionPanel from "../ActionPanel/RecordActionPanel";
 import { useSceneMetaData } from "@/app/hooks/useSceneMetaData";
 import Pretest from "../pre-test/page";
+import PracticeFeedback from "../feedback/PracticeFeedback";
 
 export default function SingleAudioInputGroup
 ({nodeId}) {
   const scenes = useSceneMetaData();
   console.log("this is scenes", scenes);
   const [pretestDone, setPretestDone] = useState(false);
+  const [AudioInputDone, setAudioInputDone] = useState(false);
+  const [openFeedback, setOpenFeedback] = useState(false);
+  const [posttestDone, setPosttestDone] = useState(false);
   const [currentStep, setCurrentStep] = useState("first");
   const { nextGroup, goToGroup } = useVideoGroup();
   const [showAction, setShowAction] = useState(false);
@@ -39,12 +43,11 @@ export default function SingleAudioInputGroup
   };
 
   const handleAudioResult = (result) => {
-    if (result === true) {
-      goToGroup(6);
-    } else {
-      goToGroup(3);
+    if (result !== undefined) {
+      setOpenFeedback(true);
     }
   };
+  
   
 
   const renderVideo = () => {
@@ -61,6 +64,10 @@ export default function SingleAudioInputGroup
 
   if (!pretestDone) {
     return <Pretest nodeId={nodeId} status={hasDonePretest}  currentScene={currentScene} onDone={() => setPretestDone(true)} />;
+  }
+
+  if (openFeedback) {
+    return <PracticeFeedback onDone={() => goToGroup(6)} id={firstId} />;
   }
 
   return (

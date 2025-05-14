@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 export default function Pretest({ nodeId, onDone,status }) {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [anxietyLevel, setAnxietyLevel] = useState(true);
+  const [anxietyLevel, setAnxietyLevel] = useState(null);
   const [anxietyReason, setAnxietyReason] = useState("");
   const [progress, setProgress] = useState(0);
 
