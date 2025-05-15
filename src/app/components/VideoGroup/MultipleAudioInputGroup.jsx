@@ -8,7 +8,7 @@ import CancelVidBtn from "../Buttons/CancelVidBtn";
 import ProgressBar from "../ProgressBar";
 import { useVideoGroup } from "@/app/context/VideoGroupContext";
 import RecordActionPanel from "../ActionPanel/RecordActionPanel";
-export default function AudioInputGroupTwo({}) {
+export default function MultipleAudioInputGroup({}) {
   const [currentStep, setCurrentStep] = useState("first");
   const { nextGroup, goToGroup } = useVideoGroup();
   const [showAction, setShowAction] = useState(false);

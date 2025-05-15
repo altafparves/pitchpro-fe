@@ -5,7 +5,6 @@ export const sceneMetaData = [
     type: "click",
     title: "Choose preparation",
     desc: "Arga wants to prepare his AI class presentation. He will make a decision.",
-    status: "unlocked",
     src: {
       checkpoint: {
         1: "https://storage.cloud.google.com/assets-pitchpro/(2)StudyWith(CLICK).mp4",
@@ -20,12 +19,13 @@ export const sceneMetaData = [
     label: "checkpoint 1",
     type: "checkpoint",
     story_id: 1,
-    checkpoint_pack:1,
+    checkpoint_pack: 1,
     title: "Persuade friend",
     desc: "Agra’s friend, Dimas can help Arga preparing his presentation.",
-    status: "locked",
     x: 2,
     y: 0,
+    is_pre_test: false,
+    is_post_test: false,
     src: {
       checkpoint: {
         1: "https://storage.cloud.google.com/assets-pitchpro/(2.A.1)Persuasive(AUDIO).mp4",
@@ -105,11 +105,12 @@ export const sceneMetaData = [
     id: 9,
     label: "checkpoint 2",
     type: "checkpoint",
-    checkpoint_pack:2,
-    story_id:2,
+    checkpoint_pack: 2,
+    story_id: 2,
     title: "Presentation with friend",
     desc: "Arga practices presentation with his friend, Dimas. ",
-    status: "locked",
+    is_pre_test: false,
+    is_post_test: false,
     src: {
       checkpoint: {
         1: "https://storage.cloud.google.com/assets-pitchpro/(2.A.7)1stAnswer(AUDIO)mp4.mp4",
@@ -141,11 +142,12 @@ export const sceneMetaData = [
     id: 11,
     label: "checkpoint 3",
     type: "checkpoint",
-    checkpoint_pack:3,
+    checkpoint_pack: 3,
     story_id: 7,
     title: "Presentation with lecturer",
     desc: " Arga presents in front of his lecture at his class. Prepare your answer for QnA session.",
-    status: "locked",
+    is_pre_test: false,
+    is_post_test: false,
     src: {
       checkpoint: {
         1: "https://storage.cloud.google.com/assets-pitchpro/(3.1)1stAnswer(AUDIO).mp4",

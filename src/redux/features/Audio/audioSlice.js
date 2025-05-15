@@ -1,27 +1,40 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const uploadAudio = createAsyncThunk("audio/uploadAudio", async ({ id, audioBlob,status }, { rejectWithValue }) => {
+export const uploadAudio = createAsyncThunk("audio/uploadAudio", async ({ id, audioBlob, status }, { rejectWithValue }) => {
   try {
     const token = localStorage.getItem("token");
+    const method = status ? "PUT" : "POST";
     const formData = new FormData();
     formData.append("audio", audioBlob, "recorded_audio.wav");
 
-    const response = await axios.post(`${API_URL}/generate/${id}`, formData, {
+    const response = await fetch(`${API_URL}/generate/${id}`, {
+      method,
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
       },
+      body: formData,
     });
 
-    return response.data;
+    if (!response.ok) {
+      let errorText = await response.text();
+      try {
+        const errorData = errorText ? JSON.parse(errorText) : "Empty error response";
+        return rejectWithValue(errorData);
+      } catch {
+        return rejectWithValue(errorText || "Upload failed");
+      }
+    }
+
+    const text = await response.text();
+    const data = text ? JSON.parse(text) : {};
+    return data;
   } catch (error) {
     console.error("Upload failed:", error);
-    return rejectWithValue(error.response?.data || "Upload failed");
+    return rejectWithValue(error.message || "Upload failed");
   }
 });
-  
+
 const audioSlice = createSlice({
   name: "audio",
   initialState: {

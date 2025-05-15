@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef,useEffect } from "react";
 import AudioRecorder from "../Recorder";
 import Countdown from "../Countdown";
 import Line from "../Line";
@@ -9,13 +9,17 @@ import SlideUpAnimation from "@/app/animation/SlideUpAnimation";
 import HelpPanel from "./HelpPanel";
 import { useDispatch } from "react-redux";
 import { uploadAudio } from "@/redux/features/Audio/audioSlice";
+import { useCheckpoint } from "@/app/context/CheckpointContext";
 export default function RecordActionPanel({ nodeId, onResultReceived }) {
+  const { pauseAudio,story } = useCheckpoint();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [isHelpPanelOpen, setIsHelpPanelOpen] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [countdownRunning, setCountdownRunning] = useState(false);
   const [recordedAudio, setRecordedAudio] = useState(null);
+  const firstStory = Object.values(story)?.[0];
+  const isGenerated = firstStory?.is_generated ?? false;
   const audioRecorderRef = useRef(null);
 
   const toggleHelpPanel = () => {
@@ -23,6 +27,7 @@ export default function RecordActionPanel({ nodeId, onResultReceived }) {
   };
 
   const handleRecordingStart = () => {
+    pauseAudio();
     setIsRecording(true);
     setCountdownRunning(true);
     setRecordedAudio(null);
@@ -48,7 +53,7 @@ export default function RecordActionPanel({ nodeId, onResultReceived }) {
     setLoading(true);
     try {
       console.log("Uploading audio with nodeId:", nodeId, recordedAudio);
-      const resultAction = await dispatch(uploadAudio({ id: nodeId, audioBlob: recordedAudio }));
+      const resultAction = await dispatch(uploadAudio({ id: nodeId, audioBlob: recordedAudio,status:isGenerated }));
 
       if (uploadAudio.fulfilled.match(resultAction)) {
         const response = resultAction.payload;
@@ -66,8 +71,8 @@ export default function RecordActionPanel({ nodeId, onResultReceived }) {
       setLoading(false);
     }
   };
-  
 
+  
   return (
     <>
       <SlideUpAnimation className="flex bottom-0 fixed rounded-t-[20px] bg-neutral-50 flex-col w-full px-5 pt-6 h-auto pb-12">

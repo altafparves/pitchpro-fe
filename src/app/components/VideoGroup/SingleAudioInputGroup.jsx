@@ -10,21 +10,29 @@ import { useVideoGroup } from "@/app/context/VideoGroupContext";
 import RecordActionPanel from "../ActionPanel/RecordActionPanel";
 import { useSceneMetaData } from "@/app/hooks/useSceneMetaData";
 import Pretest from "../pre-test/page";
-
-export default function AudioInputGroupOne({nodeId}) {
+import PracticeFeedback from "../feedback/PracticeFeedback";
+import PostTest from "../PostTest/page";
+import PageTransitionWrapper from "@/app/animation/PageTransition";
+import { CheckpointProvider } from "@/app/context/CheckpointContext";
+export default function SingleAudioInputGroup
+({nodeId}) {
   const scenes = useSceneMetaData();
   const [pretestDone, setPretestDone] = useState(false);
+  const [AudioInputDone, setAudioInputDone] = useState(false);
+  const [openFeedback, setOpenFeedback] = useState(false);
+  const [openPosttest, setOpenPosttest] = useState(false);
   const [currentStep, setCurrentStep] = useState("first");
   const { nextGroup, goToGroup } = useVideoGroup();
   const [showAction, setShowAction] = useState(false);
   const [loopSecondVideo, setLoopSecondVideo] = useState(false);
   const [progress, setProgress] = useState(0);
   const progressFinal = 75;
-
   const currentScene = scenes.find((scene) => scene.id === Number(nodeId));
-  const status= currentScene?.status;
   const firstId = currentScene?.story_id;
-  console.log("this is current scene", currentScene,status);
+  const hasDonePretest = currentScene?.is_pre_test;
+  const hasDonePosttest = currentScene?.is_post_test;
+  console.log("ini scene saat ini",currentScene);
+
 
   const handleVideoEnd = () => {
     if (currentStep === "first") {
@@ -37,12 +45,11 @@ export default function AudioInputGroupOne({nodeId}) {
   };
 
   const handleAudioResult = (result) => {
-    if (result === true) {
-      goToGroup(6);
-    } else {
-      goToGroup(3);
+    if (result !== undefined) {
+      setOpenFeedback(true);
     }
   };
+  
   
 
   const renderVideo = () => {
@@ -58,19 +65,38 @@ export default function AudioInputGroupOne({nodeId}) {
   };
 
   if (!pretestDone) {
-    return <Pretest nodeId={nodeId} currentScene={currentScene} onDone={() => setPretestDone(true)} />;
+    return <Pretest nodeId={nodeId} status={hasDonePretest}  currentScene={currentScene} onDone={() => setPretestDone(true)} />;
+  }
+
+  if (openFeedback) {
+    return (
+      <PracticeFeedback
+        id={firstId}
+        onDone={() => {
+          setOpenFeedback(false);
+          setOpenPosttest(true);
+        }}
+      />
+    );
+  }
+  
+
+  if (openPosttest) {
+    return <PostTest onDone={() => goToGroup(6)} nodeId={nodeId} status={hasDonePosttest} />;
   }
 
   return (
-    <BasicLayout className="bg-white">
-      <TopBar className="bg-transparent h-[90px]">
-        <div className="flex  w-full flex-row gap-6 items-center">
-          <CancelVidBtn></CancelVidBtn>
-          <ProgressBar progress={progress} />
-        </div>
-      </TopBar>
-      {renderVideo()}
-      {showAction && <RecordActionPanel nodeId={firstId} onResultReceived={handleAudioResult} />}
-    </BasicLayout>
+    <CheckpointProvider story={currentScene?.story}>
+      <BasicLayout className="bg-white">
+        <TopBar className="bg-transparent h-[90px]">
+          <div className="flex  w-full flex-row gap-6 items-center">
+            <CancelVidBtn></CancelVidBtn>
+            <ProgressBar progress={progress} />
+          </div>
+        </TopBar>
+        {renderVideo()}
+        {showAction && <RecordActionPanel nodeId={firstId} onResultReceived={handleAudioResult} />}
+      </BasicLayout>
+    </CheckpointProvider>
   );
 }

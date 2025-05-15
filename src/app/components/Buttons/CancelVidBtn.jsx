@@ -16,7 +16,6 @@ export default function CancelVidBtn() {
   const handleQuit = () => {
     setIsDialogOpen(false);
         setNavigationDirection("backward");
-    
     router.back();
   };
 

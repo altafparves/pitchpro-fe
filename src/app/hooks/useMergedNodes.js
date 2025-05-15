@@ -14,19 +14,21 @@ export const useMergedNodes = () => {
   }, [dispatch, status]);
 
   const mergedNodes = useMemo(() => {
-    // Step 1: Replace story-linked statuses
+    // Merge the initial nodes with the stories data
     const initialNodes = sceneData.map((node) => {
       if (node.story_id) {
         const matchedStory = stories.find((s) => s.story_id === node.story_id);
         if (matchedStory) {
           return {
             ...node,
-            status: matchedStory.status ?? node.status,
+            // replace status based on is_post-test
+            status: matchedStory["is_post-test"] ? "unlocked" : "locked",
           };
         }
       }
       return node;
     });
+    
 
     // Convert to a map for easy lookup by id
     const nodeMap = Object.fromEntries(initialNodes.map((n) => [n.id, { ...n }]));

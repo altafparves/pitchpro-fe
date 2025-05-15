@@ -9,7 +9,7 @@ import { sceneMetaData } from "@/app/data/SceneMetaData";
 import { useMemo } from "react";
 import { useVideoGroup } from "@/app/context/VideoGroupContext";
 
-export default function CutSceneSix({ nodeId, destinationId}) {
+export default function VideoMaterial({ nodeId, destinationId}) {
   const { goToGroup } = useVideoGroup();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -18,11 +18,11 @@ export default function CutSceneSix({ nodeId, destinationId}) {
   // Get video sources based on nodeId
   const videoSources = useMemo(() => {
     const scene = sceneMetaData.find((item) => item.id === nodeId);
-    if (!scene || !scene.src?.cutscene) return [];
-    // Get and return the cutscene videos as an array sorted by key
-    return Object.keys(scene.src.cutscene)
+    if (!scene || !scene.src?.material) return [];
+    // Get and return the material videos as an array sorted by key
+    return Object.keys(scene.src.material)
       .sort((a, b) => Number(a) - Number(b))
-      .map((key) => scene.src.cutscene[key]);
+      .map((key) => scene.src.material[key]);
   }, [nodeId]);
 
   const handleVideoEnd = () => {
@@ -36,7 +36,7 @@ export default function CutSceneSix({ nodeId, destinationId}) {
   };
 
   if (videoSources.length === 0) {
-    return <p>No cutscene available for nodeId: {nodeId}</p>;
+    return <p>No material available for nodeId: {nodeId}</p>;
   }
 
   return (

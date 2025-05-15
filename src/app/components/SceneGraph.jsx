@@ -40,7 +40,6 @@ function getIcon(type, status) {
 }
 
 function SceneGraph() {
-  console.log("this is sceneData", sceneData);
   const router = useRouter();
   const pathname = usePathname();
   const { setSelectedNode } = useSelectedNode();
@@ -54,8 +53,9 @@ function SceneGraph() {
     }
   };
 
+  console.log("this is merged nodes data",mergedNodes);
 
-  console.log("this is mergedNodes",mergedNodes);
+
   return (
     <div className="relative w-[1100px] h-[400px] rounded-xl overflow-hidden">
       <svg className="absolute w-full h-full z-0" xmlns="http://www.w3.org/2000/svg">

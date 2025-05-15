@@ -10,8 +10,8 @@ export default function LayoutWrapper({ children }) {
 
   // Check if path matches `/story/:storyId/:chapterId/:sceneId`
   const isScenePage = pathSegments[0] === "story" && pathSegments.length === 4;
-
-  const showNavbar = !isScenePage;
+  const isAwarenessPage = pathSegments[1] === "awareness";
+  const showNavbar = !isScenePage && !isAwarenessPage;
 
   return (
     <div className="flex flex-col min-h-screen">
