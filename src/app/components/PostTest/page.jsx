@@ -11,7 +11,7 @@ import OptionButton from "@/app/components/Buttons/OptionBtn";
 import Button from "@/app/components/Button";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { sendPostTest } from "@/redux/features/Posttest/postTestSlice";
+import { sendPostTest } from "@/redux/features/PostTest/postTestSlice";
 import { useRouter } from "next/navigation";
 export default function PostTest({ nodeId, onDone,status }) {
   const dispatch = useDispatch();
