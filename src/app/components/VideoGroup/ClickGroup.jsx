@@ -3,10 +3,10 @@ import { useState } from "react";
 import BasicLayout from "@/app/components/BasicLayout";
 import LocalVideoPlayer from "@/app/components/LocalVideoPlayer";
 import ActionPanel from "@/app/components/ActionPanel/ActionPanel";
-import LoopingVideoPlayer from "../LoopingVideoPlayer";
 import TopBar from "../bar/TopBar";
 import CancelVidBtn from "../Buttons/CancelVidBtn";
 import ProgressBar from "../ProgressBar";
+import LoopingCutScene from "../LoopingCutScene";
 import { useVideoGroup } from "@/app/context/VideoGroupContext";
 export default function ClickGroup({  }) {
   const [currentStep, setCurrentStep] = useState("first");
@@ -44,10 +44,10 @@ export default function ClickGroup({  }) {
     }
 
     if (loopSecondVideo) {
-      return <LoopingVideoPlayer key="looping-second-video" videoSrc="https://storage.cloud.google.com/assets-pitchpro/(2)StudyWith(CLICK).mp4" />;
+      return <LoopingCutScene key="looping-second-video" videoSrc="https://storage.cloud.google.com/assets-pitchpro/(2)StudyWith(CLICK).mp4" />;
     }
 
-    return <LoopingVideoPlayer key="looping-second-video" videoSrc="https://storage.cloud.google.com/assets-pitchpro/(2)StudyWith(CLICK).mp4" />;
+    return <LoopingCutScene key="looping-second-video" videoSrc="https://storage.cloud.google.com/assets-pitchpro/(2)StudyWith(CLICK).mp4" />;
   };
 
   

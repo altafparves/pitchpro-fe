@@ -3,7 +3,6 @@ import { useVideoGroup, VideoGroupProvider } from "@/app/context/VideoGroupConte
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import ClickGroup from "@/app/components/VideoGroup/ClickGroup";
-import CutSceneGroup from "@/app/components/VideoGroup/VIdeoMaterial";
 import CutSceneTwo from "@/app/components/VideoGroup/cutSceneTwo";
 import CutSceneThree from "@/app/components/VideoGroup/cutSceneThree";
 import CutSceneFour from "@/app/components/VideoGroup/cutSceneFour";
