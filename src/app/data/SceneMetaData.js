@@ -7,10 +7,10 @@ export const sceneMetaData = [
     desc: "Arga wants to prepare his AI class presentation. He will make a decision.",
     src: {
       checkpoint: {
-        1: "https://storage.cloud.google.com/assets-pitchpro/(2)StudyWith(CLICK).mp4",
+        1: "(2)StudyWith(CLICK).mp4",
       },
       cutscene: {
-        1: "https://storage.cloud.google.com/assets-pitchpro/(1)Pilih%20belajar(CS).mp4",
+        1: "(1)Pilih belajar(CS).mp4",
       },
     },
   },
@@ -28,10 +28,10 @@ export const sceneMetaData = [
     is_post_test: false,
     src: {
       checkpoint: {
-        1: "https://storage.cloud.google.com/assets-pitchpro/(2.A.1)Persuasive(AUDIO).mp4",
+        1: "(2.A.1)Persuasive(AUDIO).mp4",
       },
       cutscene: {
-        1: "https://storage.cloud.google.com/assets-pitchpro/(2.A)Teman(CS).mp4",
+        1: "(2.A)Teman(CS).mp4",
       },
     },
   },
@@ -41,7 +41,7 @@ export const sceneMetaData = [
     type: "cutscene",
     src: {
       cutscene: {
-        1: "https://storage.cloud.google.com/assets-pitchpro/(2.A.1.B)Disagree(CS).mp4",
+        1: "(2.A.1.B)Disagree(CS).mp4",
       },
     },
   },
@@ -51,7 +51,7 @@ export const sceneMetaData = [
     type: "cutscene",
     src: {
       cutscene: {
-        1: "https://storage.cloud.google.com/assets-pitchpro/(2.B)Sendiri(CS).mp4",
+        1: "(2.B)Sendiri(CS).mp4",
       },
     },
   },
@@ -61,9 +61,9 @@ export const sceneMetaData = [
     type: "cutscene",
     src: {
       cutscene: {
-        1: "https://storage.cloud.google.com/assets-pitchpro/(2.A.6.1)OpeningExplanation(CS).mp4",
-        2: "https://storage.cloud.google.com/assets-pitchpro/(2.A.6.2)MainExplanation(CS).mp4",
-        3: "https://storage.cloud.google.com/assets-pitchpro/(2.A.6.3)ClosingExplanation(CS).mp4",
+        1: "(2.A.6.1)OpeningExplanation(CS).mp4",
+        2: "(2.A.6.1)OpeningExplanation(CS).mp4",
+        3: "(2.A.6.3)ClosingExplanation(CS).mp4",
       },
     },
   },
@@ -73,8 +73,8 @@ export const sceneMetaData = [
     type: "cutscene",
     src: {
       cutscene: {
-        1: "https://storage.cloud.google.com/assets-pitchpro/(2.A.1.A)Agree(CS).mp4",
-        2: "https://storage.cloud.google.com/assets-pitchpro/(2.A.2)DimasCame(CS).mp4",
+        1: "(2.A.1.A)Agree(CS).mp4",
+        2: "(2.A.2)DimasCame(CS).mp4",
       },
     },
   },
@@ -84,8 +84,8 @@ export const sceneMetaData = [
     type: "cutscene",
     src: {
       cutscene: {
-        3: "https://storage.cloud.google.com/assets-pitchpro/(2.A.3)ReadSlide(CS).mp4",
-        4: "https://storage.cloud.google.com/assets-pitchpro/(2.A.4)Confused(CS).mp4",
+        1: "(2.A.3)ReadSlide(CS).mp4",
+        2: "(2.A.4)Confused(CS).mp4",
       },
     },
   },
@@ -97,7 +97,7 @@ export const sceneMetaData = [
     desc: "Breathing execise for optimize your presentation and releave your anxiety",
     src: {
       material: {
-        1: "https://storage.cloud.google.com/assets-pitchpro/(2.A.5)BreatheExcercise(CS).mp4",
+        1: "(2.A.5)BreatheExcercise(CS).mp4",
       },
     },
   },
@@ -113,18 +113,18 @@ export const sceneMetaData = [
     is_post_test: false,
     src: {
       checkpoint: {
-        1: "https://storage.cloud.google.com/assets-pitchpro/(2.A.7)1stAnswer(AUDIO)mp4.mp4",
-        2: "https://storage.cloud.google.com/assets-pitchpro/(2.A.7)2ndAnswer(AUDIO)mp4.mp4",
-        3: "https://storage.cloud.google.com/assets-pitchpro/(2.A.7)3rdAnswer(AUDIO)mp4.mp4",
-        4: "https://storage.cloud.google.com/assets-pitchpro/(2.A.7)4thAnswer(AUDIO)mp4.mp4",
-        5: "https://storage.cloud.google.com/assets-pitchpro/(2.A.7)1stAnswer(AUDIO)mp4.mp4",
+        1: "(2.A.7)1stAnswer(AUDIO)mp4.mp4",
+        2: "(2.A.7)2ndAnswer(AUDIO)mp4.mp4",
+        3: "(2.A.7)3rdAnswer(AUDIO)mp4.mp4",
+        4: "(2.A.7)4thAnswer(AUDIO)mp4.mp4",
+        5: "(2.A.7)1stAnswer(AUDIO)mp4.mp4",
       },
       cutscene: {
-        1: "https://storage.cloud.google.com/assets-pitchpro/(2.A.7.1)30S_Opening(CS).mp4",
-        2: "https://storage.cloud.google.com/assets-pitchpro/(2.A.7.2)1M_Differences(CS).mp4",
-        3: "https://storage.cloud.google.com/assets-pitchpro/(2.A.7.3)1M_Ethics(CS).mp4",
-        4: "https://storage.cloud.google.com/assets-pitchpro/(2.A.7.4)1M_Consequences(CS).mp4",
-        5: "https://storage.cloud.google.com/assets-pitchpro/(2.A.7.5)30S_Closing(CS).mp4",
+        1: "(2.A.7.1)30S_Opening(CS).mp4",
+        2: "(2.A.7.2)1M_Differences(CS).mp4",
+        3: "(2.A.7.3)1M_Ethics(CS).mp4",
+        4: "(2.A.7.4)1M_Consequences(CS).mp4",
+        5: "(2.A.7.5)30S_Closing(CS).mp4",
       },
     },
   },
@@ -134,7 +134,7 @@ export const sceneMetaData = [
     type: "cutscene",
     src: {
       cutscene: {
-        1: "https://storage.cloud.google.com/assets-pitchpro/(2.A.8)FinishExcercise(CS).mp4",
+        1: "(2.A.8)FinishExcercise(CS).mp4",
       },
     },
   },
@@ -150,12 +150,12 @@ export const sceneMetaData = [
     is_post_test: false,
     src: {
       checkpoint: {
-        1: "https://storage.cloud.google.com/assets-pitchpro/(3.1)1stAnswer(AUDIO).mp4",
-        2: "https://storage.cloud.google.com/assets-pitchpro/(3.3)2ndAnswer(AUDIO).mp4",
+        1: "(3.1)1stAnswer(AUDIO).mp4",
+        2: "(3.3)2ndAnswer(AUDIO).mp4",
       },
       cutscene: {
-        1: "https://storage.cloud.google.com/assets-pitchpro/(3)1stQnA(CS).mp4",
-        2: "https://storage.cloud.google.com/assets-pitchpro/(3.2)2ndQnA(CS).mp4",
+        1: "(3)1stQnA(CS).mp4",
+        2: "(3.2)2ndQnA(CS).mp4",
       },
     },
   },
@@ -165,7 +165,7 @@ export const sceneMetaData = [
     type: "cutscene",
     src: {
       cutscene: {
-        1: "https://storage.cloud.google.com/assets-pitchpro/(3.4)PresentationFinish(CS).mp4",
+        1: "(3.4)PresentationFinish(CS).mp4",
       },
     },
   },
