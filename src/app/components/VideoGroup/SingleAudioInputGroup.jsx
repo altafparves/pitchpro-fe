@@ -13,10 +13,12 @@ import PracticeFeedback from "../feedback/PracticeFeedback";
 import PostTest from "../PostTest/page";
 import PageTransitionWrapper from "@/app/animation/PageTransition";
 import { CheckpointProvider } from "@/app/context/CheckpointContext";
+import { useSceneMetaData } from "@/app/hooks/useSceneMetaData";
 export default function SingleAudioInputGroup
-({nodeId,scenes}) {
+({nodeId,}) {
+  const { mergedData: scenes, isLoading } = useSceneMetaData();
+  const currentScene = scenes.find((scene) => scene.id === Number(nodeId));
   // const scenes = useSceneMetaData();
-  console.log("this is scenes", scenes);
   const [pretestDone, setPretestDone] = useState(false);
   const [AudioInputDone, setAudioInputDone] = useState(false);
   const [openFeedback, setOpenFeedback] = useState(false);
@@ -28,10 +30,12 @@ export default function SingleAudioInputGroup
   const [loopSecondVideo, setLoopSecondVideo] = useState(false);
   const [progress, setProgress] = useState(0);
   const progressFinal = 75;
-  const currentScene = scenes.find((scene) => scene.id === Number(nodeId));
   const firstId = currentScene?.story_id;
   const hasDonePretest = currentScene?.is_pre_test;
   const hasDonePosttest = currentScene?.is_post_test;
+  const cutsceneUrl = currentScene?.src?.cutscene?.["1"]?.videoUrl;
+  const checkpointUrl = currentScene?.src?.checkpoint?.["1"]?.videoUrl;
+
   console.log("this is scenes",scenes);
   console.log("ini scene saat ini",currentScene);
 
@@ -49,14 +53,14 @@ export default function SingleAudioInputGroup
 
   const renderVideo = () => {
     if (currentStep === "first") {
-      return <LocalVideoPlayer key="first-video" videoSrc="https://storage.cloud.google.com/assets-pitchpro/(2.A)Teman(CS).mp4" onProgress={setProgress} onEnded={handleVideoEnd} progressFinal={progressFinal} />;
+      return <LocalVideoPlayer key="first-video" videoSrc={cutsceneUrl} onProgress={setProgress} onEnded={handleVideoEnd} progressFinal={progressFinal} />;
     }
 
     if (loopSecondVideo) {
-      return <LoopingVideoPlayer key="looping-second-video" videoSrc="https://storage.cloud.google.com/assets-pitchpro/(2.A.1)Persuasive(AUDIO).mp4" />;
+      return <LoopingVideoPlayer key="looping-second-video" videoSrc={checkpointUrl} />;
     }
 
-    return <LoopingVideoPlayer key="looping-second-video" videoSrc="https://storage.cloud.google.com/assets-pitchpro/(2.A.1)Persuasive(AUDIO).mp4" />;
+    return <LoopingVideoPlayer key="looping-second-video" videoSrc={checkpointUrl} />;
   };
 
   // open feedback
