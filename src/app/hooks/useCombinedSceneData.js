@@ -3,7 +3,6 @@ import { sceneMetaData } from "../data/SceneMetaData";
 export default function useCombinedSceneData(videos) {
   const combinedData = useMemo(() => {
     if (!videos || videos.length === 0) return sceneMetaData;
-
     const videoMap = new Map();
     videos.forEach((video) => {
       videoMap.set(video.fileName, video.videoUrl);
