@@ -93,7 +93,7 @@ export default function SingleAudioInputGroup
             goToGroup(3);
           }
         }}
-        nodeId={nodeId}
+        nodeId={currentScene?.story_id}
         status={hasDonePosttest}
       />
     );
