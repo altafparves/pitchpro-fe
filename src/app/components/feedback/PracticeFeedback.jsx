@@ -7,6 +7,8 @@ import Button from "../Button";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Image from "next/image";
+import IntonationChart from "../chart/IntonationChart";
+import ArticulationChart from "../chart/ArticulationChart";
 import { generateRandomTip } from "@/app/utils/getGenerateRandomTips";
 import { motion } from "framer-motion";
 import { setNavigationDirection } from "@/app/utils/NavigationDirection";
@@ -79,6 +81,7 @@ export default function PracticeFeedback({ onDone,id=1 }) {
                 </div>
               </Card>
               <Card borderColor="#5CAAFF" shadow="#ADD5FF" title="Intonation">
+                <IntonationChart timeSeries={timeSeries ?? []} />
                 <div className="flex flex-col items-start gap-4 mt-1">
                   <p className="text-label font-normal text-neutral-900">{improvement?.intonation ?? "No feedback available."}</p>
                   <p className="text-label font-normal text-neutral-900">
@@ -93,6 +96,7 @@ export default function PracticeFeedback({ onDone,id=1 }) {
                 </div>
               </Card>
               <Card borderColor="#5CAAFF" shadow="#ADD5FF" title="Articulation">
+                <ArticulationChart timeSeries={timeSeries ?? []} />
                 <div className="flex flex-col items-start gap-4 mt-1">
                   <p className="text-label font-normal text-neutral-900">{improvement?.articulation ?? "No feedback available."}</p>
                   <p className="text-label font-normal text-neutral-900">

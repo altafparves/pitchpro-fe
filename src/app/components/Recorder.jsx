@@ -13,7 +13,7 @@ const AudioRecorder = forwardRef(({ onRecordingStart, onRecordingStop, isRecordi
 
   useImperativeHandle(ref, () => ({
     stopRecording: () => {
-      if (mediaRecorderRef.current && isRecording && elapsedTime >= 24) {
+      if (mediaRecorderRef.current && isRecording && elapsedTime >= 15) {
         mediaRecorderRef.current.stop();
       }
     },
