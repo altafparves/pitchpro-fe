@@ -1,55 +1,82 @@
-import { useDispatch, useSelector } from "react-redux";
+"use client";
 import { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchStories } from "@/redux/features/Story/StorySlice";
+import { fetchVideos } from "@/redux/features/video/videoSlice";
 import { sceneMetaData } from "../data/SceneMetaData";
-
 export const useSceneMetaData = () => {
   const dispatch = useDispatch();
-  const { stories, status } = useSelector((state) => state.stories);
+  const { stories, status: storiesStatus } = useSelector((state) => state.stories);
+  const { videos, loading: videosLoading } = useSelector((state) => state.video);
 
   useEffect(() => {
-    if (status === "idle") {
+    if (storiesStatus === "idle") {
       dispatch(fetchStories());
     }
-  }, [dispatch, status]);
+    if (videos.length === 0 && !videosLoading) {
+      dispatch(fetchVideos());
+    }
+  }, [dispatch, storiesStatus, videos.length, videosLoading]);
 
   const mergedData = useMemo(() => {
-  if (!stories || stories.length === 0) return sceneMetaData;
+    const videoMap = new Map();
+    videos.forEach((video) => {
+      videoMap.set(video.fileName, video.videoUrl);
+    });
 
-  return sceneMetaData.map((node) => {
-    const updatedNode = { ...node };
-
-    // Step 1: Merge story by `story_id` for post-test status
-    if (node.story_id) {
-      const matchedStory = stories.find((s) => s.story_id === node.story_id);
-      if (matchedStory) {
-        // Update is_pre_test and is_post_test to match the story data
-        updatedNode.is_pre_test = matchedStory["is_pre-test"];
-        updatedNode.is_post_test = matchedStory["is_post-test"];
+    const resolveSrc = (srcGroup) => {
+      const newGroup = {};
+      for (const key in srcGroup) {
+        const fileName = srcGroup[key];
+        newGroup[key] = {
+          fileName,
+          videoUrl: videoMap.get(fileName) || null,
+        };
       }
-    }
+      return newGroup;
+    };
 
-    // Step 2: Collect all stories with the same checkpoint_pack (if defined)
-    if (node.checkpoint_pack) {
-      const relatedStories = stories
-        .filter((s) => s.checkpoint_pack === node.checkpoint_pack)
-        .sort((a, b) => a.chapter - b.chapter); // ensure consistent order if needed
+    return sceneMetaData.map((node) => {
+      const updatedNode = { ...node };
 
-      // Step 3: Convert them to object indexed by chapter or 1-based index
-      if (relatedStories.length > 0) {
-        const storyMap = {};
-        relatedStories.forEach((story, index) => {
-          // You can use index + 1 or chapter or story_id as the key
-          storyMap[index + 1] = story;
-        });
-
-        updatedNode.story = storyMap;
+      if (node.src) {
+        updatedNode.src = {};
+        if (node.src.checkpoint) {
+          updatedNode.src.checkpoint = resolveSrc(node.src.checkpoint);
+        }
+        if (node.src.cutscene) {
+          updatedNode.src.cutscene = resolveSrc(node.src.cutscene);
+        }
+        if (node.src.material) {
+          updatedNode.src.material = resolveSrc(node.src.material);
+        }
       }
-    }
 
-    return updatedNode;
-  });
-}, [stories]);
+      if (node.story_id) {
+        const matchedStory = stories.find((s) => s.story_id === node.story_id);
+        if (matchedStory) {
+          updatedNode.is_pre_test = matchedStory["is_pre-test"];
+          updatedNode.is_post_test = matchedStory["is_post-test"];
+        }
+      }
 
-  return mergedData;
+      if (node.checkpoint_pack) {
+        const relatedStories = stories.filter((s) => s.checkpoint_pack === node.checkpoint_pack).sort((a, b) => a.chapter - b.chapter);
+        if (relatedStories.length > 0) {
+          const storyMap = {};
+          relatedStories.forEach((story, index) => {
+            storyMap[index + 1] = story;
+          });
+          updatedNode.story = storyMap;
+        }
+      }
+
+      return updatedNode;
+    });
+  }, [videos, stories]);
+
+  const isLoading = storiesStatus !== "succeeded" || videosLoading;
+
+  return { mergedData, isLoading };
 };
+

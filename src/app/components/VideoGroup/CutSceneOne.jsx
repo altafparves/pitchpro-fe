@@ -5,25 +5,17 @@ import LocalVideoPlayer from "@/app/components/LocalVideoPlayer";
 import TopBar from "../bar/TopBar";
 import CancelVidBtn from "../Buttons/CancelVidBtn";
 import ProgressBar from "../ProgressBar";
-import { sceneMetaData } from "@/app/data/SceneMetaData";
-import { useMemo } from "react";
+import { useSceneMetaData } from "@/app/hooks/useSceneMetaData";
 import { useVideoGroup } from "@/app/context/VideoGroupContext";
 
-export default function CutSceneOne({ nodeId, destinationId }) {
+export default function CutSceneOne({ nodeId, destinationId}) {
+  const { mergedData: scenes, isLoading } = useSceneMetaData();
+  const currentScene = scenes.find((scene) => scene.id === Number(nodeId));
   const { goToGroup } = useVideoGroup();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const progressFinal = 100;
-
-  // Get video sources based on nodeId
-  const videoSources = useMemo(() => {
-    const scene = sceneMetaData.find((item) => item.id === nodeId);
-    if (!scene || !scene.src?.cutscene) return [];
-    // Get and return the cutscene videos as an array sorted by key
-    return Object.keys(scene.src.cutscene)
-      .sort((a, b) => Number(a) - Number(b))
-      .map((key) => scene.src.cutscene[key]);
-  }, [nodeId]);
+  const cutsceneUrl = currentScene?.src?.cutscene?.["1"]?.videoUrl;
 
   const handleVideoEnd = () => {
     if (currentIndex < videoSources.length - 1) {
@@ -35,9 +27,6 @@ export default function CutSceneOne({ nodeId, destinationId }) {
     }
   };
 
-  if (videoSources.length === 0) {
-    return <p>No cutscene available for nodeId: {nodeId}</p>;
-  }
 
   return (
     <BasicLayout className="bg-white">
@@ -48,7 +37,7 @@ export default function CutSceneOne({ nodeId, destinationId }) {
         </div>
       </TopBar>
 
-      <LocalVideoPlayer key={`video-${currentIndex}`} videoSrc={videoSources[currentIndex]} onEnded={handleVideoEnd} onProgress={setProgress} progressFinal={progressFinal} />
+      <LocalVideoPlayer key={cutsceneUrl} videoSrc={cutsceneUrl} onEnded={handleVideoEnd} onProgress={setProgress} progressFinal={progressFinal} />
     </BasicLayout>
   );
 }

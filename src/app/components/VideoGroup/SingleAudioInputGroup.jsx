@@ -8,15 +8,15 @@ import CancelVidBtn from "../Buttons/CancelVidBtn";
 import ProgressBar from "../ProgressBar";
 import { useVideoGroup } from "@/app/context/VideoGroupContext";
 import RecordActionPanel from "../ActionPanel/RecordActionPanel";
-import { useSceneMetaData } from "@/app/hooks/useSceneMetaData";
 import Pretest from "../pre-test/page";
 import PracticeFeedback from "../feedback/PracticeFeedback";
 import PostTest from "../PostTest/page";
 import PageTransitionWrapper from "@/app/animation/PageTransition";
 import { CheckpointProvider } from "@/app/context/CheckpointContext";
 export default function SingleAudioInputGroup
-({nodeId}) {
-  const scenes = useSceneMetaData();
+({nodeId,scenes}) {
+  // const scenes = useSceneMetaData();
+  console.log("this is scenes", scenes);
   const [pretestDone, setPretestDone] = useState(false);
   const [AudioInputDone, setAudioInputDone] = useState(false);
   const [openFeedback, setOpenFeedback] = useState(false);
@@ -32,6 +32,7 @@ export default function SingleAudioInputGroup
   const firstId = currentScene?.story_id;
   const hasDonePretest = currentScene?.is_pre_test;
   const hasDonePosttest = currentScene?.is_post_test;
+  console.log("this is scenes",scenes);
   console.log("ini scene saat ini",currentScene);
 
 

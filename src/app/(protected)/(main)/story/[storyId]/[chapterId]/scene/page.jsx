@@ -14,6 +14,7 @@ import VideoMaterial from "@/app/components/VideoGroup/VIdeoMaterial";
 import AudioInputGroup from "@/app/components/VideoGroup/SingleAudioInputGroup";
 import CutSceneOne from "@/app/components/VideoGroup/CutSceneOne";
 import MultipleAudioInputGroup from "@/app/components/VideoGroup/MultipleAudioInputGroup";
+
 function GamePageContent() {
   const searchParams = useSearchParams();
   const nodeId = parseInt(searchParams.get("id")); 
@@ -26,7 +27,7 @@ function GamePageContent() {
   const renderGroup = () => {
     switch (currentGroup) {
       case 1:
-        return <ClickGroup />;
+        return <ClickGroup nodeId={1} />;
       case 2:
         return <SinlgeAudioInputGroup nodeId={2} />;
       case 3:
@@ -54,6 +55,7 @@ function GamePageContent() {
         return <div>Game Complete</div>;
     }
   };
+
 
   return <main className="bg-white">{renderGroup()}</main>;
 }

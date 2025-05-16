@@ -7,8 +7,12 @@ import TopBar from "../bar/TopBar";
 import CancelVidBtn from "../Buttons/CancelVidBtn";
 import ProgressBar from "../ProgressBar";
 import LoopingCutScene from "../LoopingCutScene";
+import { useSceneMetaData } from "@/app/hooks/useSceneMetaData";
 import { useVideoGroup } from "@/app/context/VideoGroupContext";
-export default function ClickGroup({  }) {
+export default function ClickGroup({ nodeId }) {
+  const { mergedData: scenes, isLoading } = useSceneMetaData();
+  console.log("this is mergeData", scenes);
+  const currentScene = scenes.find((scene) => scene.id === Number(nodeId));
   const [currentStep, setCurrentStep] = useState("first");
   const { nextGroup, goToGroup } = useVideoGroup();
   const [showAction, setShowAction] = useState(false);
@@ -36,18 +40,23 @@ export default function ClickGroup({  }) {
       nextGroup();
     }
   };
-  
-
+ 
   const renderVideo = () => {
+    if (isLoading) {
+      return <main className="p-4 bg-black text-center flex justify-center items-center h-screen text-neutral-900">Loading game assets...</main>;
+    }
+
+    const cutsceneUrl = currentScene?.src?.cutscene?.["1"]?.videoUrl;
+    const checkpointUrl = currentScene?.src?.checkpoint?.["1"]?.videoUrl;
     if (currentStep === "first") {
-      return <LocalVideoPlayer key="first-video" videoSrc="https://storage.cloud.google.com/assets-pitchpro/(1)Pilih%20belajar(CS).mp4" onProgress={setProgress} onEnded={handleVideoEnd} progressFinal={progressFinal} />;
+      return <LocalVideoPlayer key="first-video" videoSrc={cutsceneUrl} onProgress={setProgress} onEnded={handleVideoEnd} progressFinal={progressFinal} />;
     }
 
     if (loopSecondVideo) {
-      return <LoopingCutScene key="looping-second-video" videoSrc="https://storage.cloud.google.com/assets-pitchpro/(2)StudyWith(CLICK).mp4" />;
+      return <LoopingCutScene key="looping-second-video" videoSrc={checkpointUrl} />;
     }
 
-    return <LoopingCutScene key="looping-second-video" videoSrc="https://storage.cloud.google.com/assets-pitchpro/(2)StudyWith(CLICK).mp4" />;
+    return <LoopingCutScene key="looping-second-video" videoSrc={checkpointUrl} />;
   };
 
   

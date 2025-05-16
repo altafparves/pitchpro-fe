@@ -32,7 +32,7 @@ export default function PopupInfo({ titleProp, descriptionProp }) {
         <p className="text-label font-normal text-neutral-900 pb-3">{description}</p>
         {isSelectedNodeNotEmpty && (
 
-            <Button onClick={handlePlayClick} className="py-1.2" disabled={loading} loading={loading}>
+            <Button onClick={handlePlayClick} className="py-1.2" disabled={loading}>
               {loading ? "Loading..." : "Play"}
             </Button>
         )}
