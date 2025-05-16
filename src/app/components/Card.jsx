@@ -5,7 +5,7 @@ export function Card({ children, shadow = "#E0E0E0", borderColor = "#A6A6A6", pa
   const borderStyle = `border-2 border-[${borderColor}]`;
   return (
     <>
-      <div className={`w-full rounded-[24] ${shadowStyle} ${padding} ${borderStyle} ${className}`}>
+      <div className={`w-full rounded-[24px] ${shadowStyle} ${padding} ${borderStyle} ${className}`}>
         {title && <p className="text-neutral-900 mb-1 text-title font-semibold">{title}</p>}
         {children}
       </div>
