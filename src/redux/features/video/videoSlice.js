@@ -1,42 +1,40 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const fetchVideoUrl = createAsyncThunk("video/fetchVideoUrl", async (filename, thunkAPI) => {
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+export const fetchVideos = createAsyncThunk("video/fetchVideos", async (_, { rejectWithValue }) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token"); 
     const response = await axios.get(`${API_URL}/media`, {
-      params: { filename },
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return { filename, url: response.data.url };
+    return response.data.url;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    return rejectWithValue(error.response?.data?.message || "Failed to fetch videos");
   }
 });
 
 const videoSlice = createSlice({
   name: "video",
   initialState: {
-    videos: {}, // stores URLs by filename
+    videos: [],
     loading: false,
     error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchVideoUrl.pending, (state) => {
+      .addCase(fetchVideos.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchVideoUrl.fulfilled, (state, action) => {
-        const { filename, url } = action.payload;
-        state.videos[filename] = url;
+      .addCase(fetchVideos.fulfilled, (state, action) => {
         state.loading = false;
+        state.videos = action.payload;
       })
-      .addCase(fetchVideoUrl.rejected, (state, action) => {
+      .addCase(fetchVideos.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

@@ -7,6 +7,7 @@ import audioReducer from "./features/Audio/audioSlice";
 import feedbackReducer from "./features/feedback/feedbackSlice";
 import profileReducer from "./features/profile/profileSlice";
 import posttestReducer from "./features/Posttest/postTestSlice";
+import videoReducer from "./features/video/videoSlice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -17,5 +18,6 @@ export const store = configureStore({
     audio: audioReducer,
     feedback: feedbackReducer,
     profile: profileReducer,
+    video: videoReducer,
   },
 });

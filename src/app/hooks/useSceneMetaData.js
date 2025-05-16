@@ -33,7 +33,7 @@ export const useSceneMetaData = () => {
     if (node.checkpoint_pack) {
       const relatedStories = stories
         .filter((s) => s.checkpoint_pack === node.checkpoint_pack)
-        .sort((a, b) => a.chapter - b.chapter); // ensure consistent order if needed
+        .sort((a, b) => a.chapter - b.chapter); 
 
       // Step 3: Convert them to object indexed by chapter or 1-based index
       if (relatedStories.length > 0) {
