@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import BasicLayout from "@/app/components/BasicLayout";
 import LocalVideoPlayer from "@/app/components/LocalVideoPlayer";
 import LoopingVideoPlayer from "../LoopingVideoPlayer";
@@ -24,6 +24,7 @@ export default function SingleAudioInputGroup
   const [currentStep, setCurrentStep] = useState("first");
   const { nextGroup, goToGroup } = useVideoGroup();
   const [showAction, setShowAction] = useState(false);
+  const [generateResult,setGenerateResult]=useState(null)
   const [loopSecondVideo, setLoopSecondVideo] = useState(false);
   const [progress, setProgress] = useState(0);
   const progressFinal = 75;
@@ -43,13 +44,6 @@ export default function SingleAudioInputGroup
       setLoopSecondVideo(true);
     }
   };
-
-  const handleAudioResult = (result) => {
-    if (result !== undefined) {
-      setOpenFeedback(true);
-    }
-  };
-  
   
 
   const renderVideo = () => {
@@ -63,6 +57,14 @@ export default function SingleAudioInputGroup
 
     return <LoopingVideoPlayer key="looping-second-video" videoSrc="https://storage.cloud.google.com/assets-pitchpro/(2.A.1)Persuasive(AUDIO).mp4" />;
   };
+
+  // open feedback
+  useEffect(() => {
+    if (generateResult !== null) {
+      setOpenFeedback(true);
+    }
+  }, [generateResult]);
+
 
   if (!pretestDone) {
     return <Pretest nodeId={nodeId} status={hasDonePretest}  currentScene={currentScene} onDone={() => setPretestDone(true)} />;
@@ -82,7 +84,19 @@ export default function SingleAudioInputGroup
   
 
   if (openPosttest) {
-    return <PostTest onDone={() => goToGroup(6)} nodeId={nodeId} status={hasDonePosttest} />;
+    return (
+      <PostTest
+        onDone={() => {
+          if (generateResult) {
+            goToGroup(6);
+          } else {
+            goToGroup(3);
+          }
+        }}
+        nodeId={nodeId}
+        status={hasDonePosttest}
+      />
+    );
   }
 
   return (
@@ -95,7 +109,7 @@ export default function SingleAudioInputGroup
           </div>
         </TopBar>
         {renderVideo()}
-        {showAction && <RecordActionPanel nodeId={firstId} onResultReceived={handleAudioResult} />}
+        {showAction && <RecordActionPanel nodeId={firstId} generateResult={setGenerateResult} />}
       </BasicLayout>
     </CheckpointProvider>
   );

@@ -10,7 +10,7 @@ import HelpPanel from "./HelpPanel";
 import { useDispatch } from "react-redux";
 import { uploadAudio } from "@/redux/features/Audio/audioSlice";
 import { useCheckpoint } from "@/app/context/CheckpointContext";
-export default function RecordActionPanel({ nodeId, onResultReceived }) {
+export default function RecordActionPanel({ nodeId, generateResult }) {
   const { pauseAudio,story } = useCheckpoint();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -50,6 +50,10 @@ export default function RecordActionPanel({ nodeId, onResultReceived }) {
   };
 
   const handleClick = async () => {
+    console.log("AudioBlob info:", recordedAudio);
+    console.log("Size:", recordedAudio?.size);
+    console.log("Type:", recordedAudio?.type);
+
     setLoading(true);
     try {
       console.log("Uploading audio with nodeId:", nodeId, recordedAudio);
@@ -58,10 +62,13 @@ export default function RecordActionPanel({ nodeId, onResultReceived }) {
       if (uploadAudio.fulfilled.match(resultAction)) {
         const response = resultAction.payload;
         console.log("Upload success:", response);
+        generateResult(response.data);
 
-        if (response.result !== undefined && typeof onResultReceived === "function") {
-          onResultReceived(response.result);
+
+        if (response.data !== undefined) {
+          console.log("Response data:", response?.data);
         }
+        
       } else {
         console.error("Upload failed:", resultAction.payload);
       }
