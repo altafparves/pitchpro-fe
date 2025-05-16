@@ -7,7 +7,9 @@ import LineChart from "@/app/components/chart/LineChart";
 import Skeleton from "@/app/components/Skeleton";
 import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
+import Button from "@/app/components/Button";
 import { fetchProfile } from "@/redux/features/profile/profileSlice";
+import { clearError } from "@/redux/features/auth/authSlice";
 export default function ProfilePage() {
   const user = useSelector((state) => state.auth.user?.user);
   const dispatch = useDispatch();
@@ -16,7 +18,13 @@ export default function ProfilePage() {
   useEffect(()=>{
     dispatch(fetchProfile());
   },[dispatch]);
-  console.log("this is profile",profile);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    dispatch(clearError());
+    router.push("/auth/welcome");
+  };
   return (
     <div className="flex-1 relative bg-neutral-50 overflow-y-auto px-5 pb-[104px] flex flex-col items-start gap-6 pt-14">
       <Card>
@@ -37,6 +45,9 @@ export default function ProfilePage() {
         </div>
       </Card>
       <Badges earnedBadgeIds={profile?.badge || []} />
+      <Button variant="danger" onClick={handleLogout}>
+        Logout
+      </Button>
     </div>
   );
 }
