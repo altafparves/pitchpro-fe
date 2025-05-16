@@ -67,7 +67,7 @@ export default function SingleAudioInputGroup
 
 
   if (!pretestDone) {
-    return <Pretest nodeId={nodeId} status={hasDonePretest}  currentScene={currentScene} onDone={() => setPretestDone(true)} />;
+    return <Pretest nodeId={currentScene?.story_id} status={hasDonePretest}  currentScene={currentScene} onDone={() => setPretestDone(true)} />;
   }
 
   if (openFeedback) {
