@@ -20,7 +20,7 @@ export default function Pretest({ nodeId, onDone,status }) {
   const [anxietyLevel, setAnxietyLevel] = useState(null);
   const [anxietyReason, setAnxietyReason] = useState("");
   const [progress, setProgress] = useState(0);
-
+  const [loading, setLoading] = useState(false);
 
   const reasons = ["The topic", "The environment", "Lack of preparation", "Fear of failure"];
 
@@ -39,7 +39,7 @@ export default function Pretest({ nodeId, onDone,status }) {
       alert("Please complete both questions before proceeding.");
       return;
     }
-
+    setLoading(true);
     const user = localStorage.getItem("user");
     const userId = user ? JSON.parse(user)?.id : null;
 
@@ -61,6 +61,9 @@ export default function Pretest({ nodeId, onDone,status }) {
       })
       .catch((err) => {
         console.error("Pretest submission failed:", err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -100,9 +103,8 @@ export default function Pretest({ nodeId, onDone,status }) {
               </div>
             </Card>
           </div>
-
-          <Button onClick={handleNext} disabled={anxietyLevel === null || !anxietyReason}>
-            Next
+          <Button onClick={handleNext} disabled={anxietyLevel === null || !anxietyReason || loading}>
+            {loading ? "Submitting..." : "Next"}
           </Button>
         </ContentWrapper>
       </BasicLayout>
