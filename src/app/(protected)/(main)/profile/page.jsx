@@ -13,17 +13,16 @@ export default function ProfilePage() {
   const dispatch = useDispatch();
   const profile = useSelector((state)=> state.profile.value);
   const loading = useSelector((state) => state.profile.loading);
-
-
   useEffect(()=>{
     dispatch(fetchProfile());
   },[dispatch]);
+  console.log("this is profile",profile);
   return (
     <div className="flex-1 relative bg-neutral-50 overflow-y-auto px-5 pb-[104px] flex flex-col items-start gap-6 pt-14">
       <Card>
         <div className="w-fulls flex flex-row gap-6 items-center justify-start">
           <Image className="rounded-full bg-[#D9D9D9D9]" height={128} width={128} src={user.avatar} alt="User Avatar" />
-           <p className="text-neutral-900 text-title font-semibold flex flex-col items-start text-center">
+          <p className="text-neutral-900 text-title font-semibold flex flex-col items-start text-center">
             {user?.username ? user.username : <Skeleton rows={1} height="12px" mb="0.75rem" />}
             <span className="text-label font-normal">{user?.email}</span>
           </p>
@@ -32,12 +31,12 @@ export default function ProfilePage() {
       <Card padding="p-4" title="Progress">
         <div className="w-full flex flex-col gap-2 items-start">
           <p className="text-label font-normal text-neutral-900">Progress Your XP in this week</p>
-          <LineChart />
+          <LineChart xpData={profile?.xp || []} />
           <p className="text-label font-normal text-neutral-900">Total XP in this week</p>
           <XpChip />
         </div>
       </Card>
-      <Badges />
+      <Badges earnedBadgeIds={profile?.badge || []} />
     </div>
   );
 }

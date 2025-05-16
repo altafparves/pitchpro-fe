@@ -1,50 +1,62 @@
 "use client";
 
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, scales } from "chart.js";
-
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 import { Line } from "react-chartjs-2";
 
-// Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-// Sample data
-const data = {
-  labels: [0, 1, 2, 3, 4],
-  datasets: [
-    {
-      label: "Monthly Sales",
-      data: [65, 59, 80, 81, 56],
-      fill: false,
-      borderColor: "#0055B2",
-      tension: 0.1,
-    },
-  ],
-};
+export default function LineChart({ xpData = [] }) {
+  console.log("this is xpData", xpData);
 
-// Chart options
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
-    }
-  },
-  scales: {
-    x: {
-      display: true, 
-      grid: {
+  // Sort by date just in case
+  const sortedData = [...xpData].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  // Format date to day of week: Mon, Tue, ...
+  const labels = sortedData.map((item) =>
+    new Date(item.date).toLocaleDateString("en-GB", {
+      weekday: "short",
+    })
+  );
+
+  const dataPoints = sortedData.map((item) => item.xp);
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Weekly XP",
+        data: dataPoints,
+        fill: true,
+        borderColor: "#0055B2",
+        backgroundColor: "rgba(0, 85, 178, 0.1)",
+        tension: 0.1,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
         display: false,
       },
     },
-    y: {
-      display: true, // optional: hides y-axis
-      grid: {
+    scales: {
+      x: {
         display: true,
+        grid: {
+          display: false,
+        },
+      },
+      y: {
+        display: true,
+        grid: {
+          display: true,
+        },
+        beginAtZero: true,
       },
     },
-  },
-};
+  };
 
-export default function LineChart() {
   return <Line data={data} options={options} />;
 }
