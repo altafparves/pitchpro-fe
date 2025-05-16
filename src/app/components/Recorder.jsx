@@ -46,7 +46,7 @@ const AudioRecorder = forwardRef(({ onRecordingStart, onRecordingStop, isRecordi
 
   const handleRecordToggle = async () => {
     if (isRecording) {
-      if (elapsedTime >= 24) {
+      if (elapsedTime >= 11) {
         mediaRecorderRef.current.stop();
       }
     } else {
