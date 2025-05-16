@@ -19,6 +19,8 @@ export default function PostTest({ nodeId, onDone, status }) {
   const [anxietyLevel, setAnxietyLevel] = useState(null);
   const [anxietyReason, setAnxietyReason] = useState("");
   const [progress, setProgress] = useState(0);
+  const [loading, setLoading] = useState(false);
+
 
   const reasons = ["The topic", "The environment", "Lack of preparation", "Fear of failure"];
 
@@ -33,6 +35,7 @@ export default function PostTest({ nodeId, onDone, status }) {
   }, [anxietyLevel, anxietyReason]);
 
   const handleNext = () => {
+    setLoading(true);
     if (anxietyLevel === null || !anxietyReason) {
       alert("Please complete both questions before proceeding.");
       return;
@@ -51,6 +54,9 @@ export default function PostTest({ nodeId, onDone, status }) {
       })
       .catch((err) => {
         console.error("Posttest submission failed:", err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -90,8 +96,8 @@ export default function PostTest({ nodeId, onDone, status }) {
           </Card>
         </div>
 
-        <Button onClick={handleNext} disabled={anxietyLevel === null || !anxietyReason}>
-          Next
+        <Button onClick={handleNext} disabled={anxietyLevel === null || !anxietyReason || loading}>
+          {loading ? "Submitting..." : "Next"}
         </Button>
       </ContentWrapper>
     </BasicLayout>
