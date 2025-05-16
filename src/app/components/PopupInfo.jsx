@@ -2,18 +2,24 @@ import PropTypes from "prop-types";
 import { useSelectedNode } from "@/app/context/SelectedNodeContext";
 import Button from "./Button";
 import { useRouter } from "next/navigation";
-export default function PopupInfo({ titleProp, descriptionProp}) {
+import { useState } from "react";
+
+export default function PopupInfo({ titleProp, descriptionProp }) {
   const router = useRouter();
   const { selectedNode } = useSelectedNode();
+  const [loading, setLoading] = useState(false);
   const description = selectedNode?.desc || descriptionProp;
   const title = selectedNode?.title || titleProp;
   const isSelectedNodeNotEmpty = selectedNode && Object.keys(selectedNode).length > 0;
+
   const handlePlayClick = () => {
+    setLoading(true);
     sessionStorage.setItem("userInteracted", "true");
     if (selectedNode?.id) {
       router.push(`${window.location.pathname}/scene?id=${selectedNode.id}`);
-    }    
+    }
   };
+
   return (
     <div className="w-full absolute px-3 top-[94px] left-0 right-0">
       <div
@@ -25,11 +31,10 @@ export default function PopupInfo({ titleProp, descriptionProp}) {
         <p className="text-body font-semibold text-neutral-900">{title}</p>
         <p className="text-label font-normal text-neutral-900 pb-3">{description}</p>
         {isSelectedNodeNotEmpty && (
-          <div>
-            <Button onClick={handlePlayClick} className="py-1.2">
-              Play
+
+            <Button onClick={handlePlayClick} className="py-1.2" disabled={loading} loading={loading}>
+              {loading ? "Loading..." : "Play"}
             </Button>
-          </div>
         )}
       </div>
     </div>
