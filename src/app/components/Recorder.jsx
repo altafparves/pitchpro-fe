@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, forwardRef, useImperativeHandle } from "react";
+import { useRef, forwardRef, useImperativeHandle, useState, useEffect } from "react";
 import IconAudio from "../../../public/assets/icons/mingcute_voice-fill";
 import Button from "../components/Button";
 
@@ -8,10 +8,12 @@ const AudioRecorder = forwardRef(({ onRecordingStart, onRecordingStop, isRecordi
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
   const audioStreamRef = useRef(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [timerId, setTimerId] = useState(null);
 
   useImperativeHandle(ref, () => ({
     stopRecording: () => {
-      if (mediaRecorderRef.current && isRecording) {
+      if (mediaRecorderRef.current && isRecording && elapsedTime >= 15) {
         mediaRecorderRef.current.stop();
       }
     },
@@ -23,21 +25,30 @@ const AudioRecorder = forwardRef(({ onRecordingStart, onRecordingStop, isRecordi
     },
   }));
 
-  const getSupportedMimeType = () => {
-    const possibleTypes = ["audio/wav", "audio/webm", "audio/mp4", "audio/ogg"];
-
-    for (const type of possibleTypes) {
-      if (MediaRecorder.isTypeSupported(type)) {
-        return type;
-      }
+  useEffect(() => {
+    if (isRecording) {
+      const id = setInterval(() => {
+        setElapsedTime((prev) => prev + 1);
+      }, 1000);
+      setTimerId(id);
+    } else {
+      clearInterval(timerId);
+      setElapsedTime(0);
     }
 
-    return undefined;
+    return () => clearInterval(timerId);
+  }, [isRecording]);
+
+  const getSupportedMimeType = () => {
+    const possibleTypes = ["audio/wav", "audio/webm", "audio/mp4", "audio/ogg"];
+    return possibleTypes.find((type) => MediaRecorder.isTypeSupported(type));
   };
 
   const handleRecordToggle = async () => {
     if (isRecording) {
-      mediaRecorderRef.current.stop();
+      if (elapsedTime >= 24) {
+        mediaRecorderRef.current.stop();
+      }
     } else {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -85,9 +96,9 @@ const AudioRecorder = forwardRef(({ onRecordingStart, onRecordingStop, isRecordi
   };
 
   return (
-    <Button variant="primary" className="flex flex-row gap-1" onClick={handleRecordToggle}>
+    <Button variant="primary" className="flex flex-row gap-1" onClick={handleRecordToggle} disabled={isRecording && elapsedTime < 15}>
       <IconAudio />
-      {isRecording ? "Stop Recording" : "Start Recording"}
+      {isRecording ? `Stop Recording ` : "Start Recording"}
     </Button>
   );
 });

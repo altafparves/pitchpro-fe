@@ -3,7 +3,6 @@ import { useVideoGroup, VideoGroupProvider } from "@/app/context/VideoGroupConte
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import ClickGroup from "@/app/components/VideoGroup/ClickGroup";
-import CutSceneGroup from "@/app/components/VideoGroup/VIdeoMaterial";
 import CutSceneTwo from "@/app/components/VideoGroup/cutSceneTwo";
 import CutSceneThree from "@/app/components/VideoGroup/cutSceneThree";
 import CutSceneFour from "@/app/components/VideoGroup/cutSceneFour";
@@ -14,6 +13,7 @@ import SinlgeAudioInputGroup from "@/app/components/VideoGroup/SingleAudioInputG
 import VideoMaterial from "@/app/components/VideoGroup/VIdeoMaterial";
 import AudioInputGroup from "@/app/components/VideoGroup/SingleAudioInputGroup";
 import CutSceneOne from "@/app/components/VideoGroup/CutSceneOne";
+import MultipleAudioInputGroup from "@/app/components/VideoGroup/MultipleAudioInputGroup";
 function GamePageContent() {
   const searchParams = useSearchParams();
   const nodeId = parseInt(searchParams.get("id")); 
@@ -42,7 +42,7 @@ function GamePageContent() {
       case 8:
         return <VideoMaterial nodeId={8} destinationId={9} />;
       case 9:
-        return <AudioInputGroup />;
+        return <MultipleAudioInputGroup nodeId={9} />;
       case 10:
         return <CutSceneSix nodeId={10} destinationId={11} />;
       case 11:

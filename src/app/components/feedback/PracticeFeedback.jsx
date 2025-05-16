@@ -6,10 +6,15 @@ import PaceChart from "../chart/PaceChart";
 import Button from "../Button";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Image from "next/image";
+import IntonationChart from "../chart/IntonationChart";
+import ArticulationChart from "../chart/ArticulationChart";
+import { generateRandomTip } from "@/app/utils/getGenerateRandomTips";
 import { motion } from "framer-motion";
 import { setNavigationDirection } from "@/app/utils/NavigationDirection";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFeedback } from "@/redux/features/feedback/feedbackSlice";
+import { badgeData } from "@/app/data/badgeData";
 export default function PracticeFeedback({ onDone,id=1 }) {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -33,6 +38,13 @@ export default function PracticeFeedback({ onDone,id=1 }) {
     }
   }, [data]);
   
+  const metrics = data?.data?.dataFeedback?.metrics;
+  const timeSeries = data?.data?.dataFeedback?.timeSeries;
+  const improvement = data?.data?.dataFeedback?.improvement;
+  const badgeId = data?.data?.badge;
+  const badge = badgeData.find((b) => b.id === badgeId);
+
+
     return (
       <>
         <motion.div initial={{ x: "100%", opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: "100%", opacity: 0 }} transition={{ type: "tween", duration: 0.4 }}>
@@ -43,60 +55,69 @@ export default function PracticeFeedback({ onDone,id=1 }) {
                 <XpChip></XpChip>
               </Card>
               <Card borderColor="#5CAAFF" shadow="#ADD5FF" title="Badge">
-                <div className="w-full flex flex-col items-center">From Blank to Bold</div>
+                <div className="w-full flex flex-col items-center">
+                  {badge && (
+                    <>
+                      <Image src={badge.src} alt={badge.label} width={90} height={90} />
+                      <p className="text-caption-c1 text-semibold text-neutral-900 text-center">{badge.label}</p>
+                    </>
+                  )}
+                  {!badge && <p className="text-caption-c1 text-semibold text-neutral-900 text-center">No badge available</p>}
+                </div>
               </Card>
               <Card borderColor="#5CAAFF" shadow="#ADD5FF" title="Pace">
-                <PaceChart></PaceChart>
-                <div className="flex flex-col items-start gap-2 mt-1">
-                  <p className="text-label font-normal text-neutral-900">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis excepturi molestiae, numquam nostrum earum delectus.</p>
+                <PaceChart timeSeries={timeSeries ?? []} />
+                <div className="flex flex-col items-start gap-4 mt-1">
+                  <p className="text-label font-normal text-neutral-900">{improvement?.pace ?? "No feedback available."}</p>
                   <p className="text-label font-normal text-neutral-900">
                     {" "}
                     Tips ✌️
                     <span>
                       <ul>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque, est.</li>
+                        <li>{generateRandomTip("pace")}</li>
                       </ul>
                     </span>
                   </p>
                 </div>
               </Card>
               <Card borderColor="#5CAAFF" shadow="#ADD5FF" title="Intonation">
-                <div className="flex flex-col items-start gap-2 mt-1">
-                  <p className="text-label font-normal text-neutral-900">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis excepturi molestiae, numquam nostrum earum delectus.</p>
+                <IntonationChart timeSeries={timeSeries ?? []} />
+                <div className="flex flex-col items-start gap-4 mt-1">
+                  <p className="text-label font-normal text-neutral-900">{improvement?.intonation ?? "No feedback available."}</p>
                   <p className="text-label font-normal text-neutral-900">
                     {" "}
                     Tips ✌️
                     <span>
                       <ul>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque, est.</li>
+                        <li>{generateRandomTip("intonation")}</li>
                       </ul>
                     </span>
                   </p>
                 </div>
               </Card>
               <Card borderColor="#5CAAFF" shadow="#ADD5FF" title="Articulation">
-                <div className="flex flex-col items-start gap-2 mt-1">
-                  <p className="text-label font-normal text-neutral-900">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis excepturi molestiae, numquam nostrum earum delectus.</p>
+                <ArticulationChart timeSeries={timeSeries ?? []} />
+                <div className="flex flex-col items-start gap-4 mt-1">
+                  <p className="text-label font-normal text-neutral-900">{improvement?.articulation ?? "No feedback available."}</p>
                   <p className="text-label font-normal text-neutral-900">
                     {" "}
                     Tips ✌️
                     <span>
                       <ul>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque, est.</li>
+                        <li>{generateRandomTip("articulation")}</li>
                       </ul>
                     </span>
                   </p>
                 </div>
               </Card>
               <Card borderColor="#5CAAFF" shadow="#ADD5FF" title="Word Choice">
-                <div className="flex flex-col items-start gap-2 mt-1">
-                  <p className="text-label font-normal text-neutral-900">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis excepturi molestiae, numquam nostrum earum delectus.</p>
+                <div className="flex flex-col items-start gap-4 mt-1">
+                  <p className="text-label font-normal text-neutral-900">{improvement?.["word-choice"] ?? "No feedback available."}</p>
                   <p className="text-label font-normal text-neutral-900">
-                    {" "}
                     Tips ✌️
                     <span>
                       <ul>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque, est.</li>
+                        <li>{generateRandomTip("word-choice")}</li>
                       </ul>
                     </span>
                   </p>
